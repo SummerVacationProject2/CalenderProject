@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.io.*;
+
 import javax.swing.*;
 
 class SwingCalender extends JFrame implements ActionListener
@@ -187,9 +188,15 @@ class SwingCalender extends JFrame implements ActionListener
 }//end class
 
 public class FrameMain
-
 {
-       public static void main(String[] args){
-    		   SwingCalender jdbc = new SwingCalender();  
-    		 }
+	public static void main(String[] args)
+	{
+		SwingCalender jdbc = new SwingCalender();
+		CalenderDBManager cdb = new CalenderDBManager();
+		AccountDBManager adb = new AccountDBManager();
+		CategoryDBManager tdb = new CategoryDBManager();
+		cdb.scheduledbManager();
+		adb.accountdbManager();
+		tdb.categorydbManager();
+	}
 }
