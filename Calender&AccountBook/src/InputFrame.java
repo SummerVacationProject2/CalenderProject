@@ -8,8 +8,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class InputFrame extends JFrame implements ActionListener
 {
-	String[] incomeCategory = {"수입분류","식비","주거/통신","생활용품","의복","미용","문화","교육","육아","교통","회비","세금",};
-	String[] expenseCategory = {"지출분류","주수입","부수입"};
+	String incomeStr[],expenseStr[];
+	public ArrayList<String> incomeCategory = new ArrayList<String>();
+	public ArrayList<String> expenseCategory = new ArrayList<String>();
+	public Manager m = new Manager();
+	
 	String[] cash = {"현금"};
 	String[] scheduleRow = {"시작시간","종료시간","일정"};
 	String[] accountRow = {"수입분류","지출분류","현금","수입","지출","내역"};
@@ -74,9 +77,36 @@ public class InputFrame extends JFrame implements ActionListener
 	    panAccountBook.setOpaque(false);
 	    panAccountBook.add(labAccountBook = new JLabel("가계부   " + date));
 	    labAccountBook.setBounds(308, 3, 250, 15);
-	    panAccountBook.add(incomeBox = new JComboBox<String>(incomeCategory));
+	    
+	    m.getCategory(incomeCategory, expenseCategory);
+	    
+	    incomeStr = new String[incomeCategory.size()+1];
+	    expenseStr = new String[expenseCategory.size()+1];
+	    
+	    for(int i=0; i<incomeCategory.size();i++)
+	      {
+	    	  if(i==0)
+	    	  {
+	    		  incomeStr[i] = "수입분류";
+	    		  incomeStr[i+1] = incomeCategory.get(i);
+	    	  }
+	    	  else
+	    		  incomeStr[i+1] = incomeCategory.get(i);
+	      }
+	      for(int i=0; i<expenseCategory.size();i++)
+	      {
+	    	  if(i==0)
+	    	  {
+	    		  expenseStr[i] = "지출분류";
+	    		  expenseStr[i+1] = expenseCategory.get(i);
+	    	  }
+	    	  else
+	    		  expenseStr[i+1] = expenseCategory.get(i);
+	      }
+	    
+	    panAccountBook.add(incomeBox = new JComboBox<String>(incomeStr));
 	    incomeBox.setBounds(308, 17, 93, 20);
-	    panAccountBook.add(expenseBox = new JComboBox<String>(expenseCategory));
+	    panAccountBook.add(expenseBox = new JComboBox<String>(expenseStr));
 	    expenseBox.setBounds(405, 17, 93, 20);
 	    panAccountBook.add(cashBox = new JComboBox<String>(cash));
 	    cashBox.setBounds(503, 17, 93, 20);
