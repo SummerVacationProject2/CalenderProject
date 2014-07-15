@@ -16,9 +16,9 @@ public class CategoryDBManager
 			String TBName = "category";
 			String dbURL = "jdbc:mysql://localhost:3306/"; // URL 지정
 			String sqlCT = "CREATE TABLE IF NOT EXISTS category (" +
-					"incomeCategory varchar(20) character set utf8 NOT NULL, " +
-					"expenseCategory varchar(20) character set utf8 NOT NULL" +
-					") default charset = utf8 ;";
+					"incomeCategory varchar(20) NOT NULL, " +
+					"expenseCategory varchar(20) NOT NULL" +
+					");";
 
 			Class.forName(driverName);
 			con  = DriverManager.getConnection(dbURL,"root","1412"); // 데이터베이스 연결
@@ -27,27 +27,25 @@ public class CategoryDBManager
 		    con  = DriverManager.getConnection(dbURL+DBName,"root","1412");
 		    stmt = con.createStatement();
 		    stmt.executeUpdate(sqlCT);
-		    stmt.executeUpdate("alter database categorydb default character set 'utf8'");
-		    stmt.executeUpdate("alter table category default character set utf8 collate utf8_general_ci");
 		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
-		    		+ "SELECT * FROM (SELECT '식비', '주수입') AS tmp WHERE NOT EXISTS ("
-		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '식비'"
+		    		+ "SELECT * FROM (SELECT '"+toLatin1("식비")+"', '"+toLatin1("주수입")+"') AS tmp WHERE NOT EXISTS ("
+		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '"+toLatin1("식비")+"'"
 		    		+ ") LIMIT 1;");
 		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
-		    		+ "SELECT * FROM (SELECT '주거/통신', '부수입') AS tmp WHERE NOT EXISTS ("
-		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '주거/통신'"
+		    		+ "SELECT * FROM (SELECT '"+toLatin1("주거/통신")+"', '"+toLatin1("부수입")+"') AS tmp WHERE NOT EXISTS ("
+		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '"+toLatin1("주거/통신")+"'"
 		    		+ ") LIMIT 1;");
 		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
-		    		+ "SELECT * FROM (SELECT '미용','') AS tmp WHERE NOT EXISTS ("
-		    		+ "SELECT * FROM category WHERE incomeCategory = '미용'"
+		    		+ "SELECT * FROM (SELECT '"+toLatin1("미용")+"','') AS tmp WHERE NOT EXISTS ("
+		    		+ "SELECT * FROM category WHERE incomeCategory = '"+toLatin1("미용")+"'"
 		    		+ ") LIMIT 1;");
 		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
-		    		+ "SELECT * FROM (SELECT '생활용품','') AS tmp WHERE NOT EXISTS ("
-		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '생활용품'"
+		    		+ "SELECT * FROM (SELECT '"+toLatin1("생활용품")+"','') AS tmp WHERE NOT EXISTS ("
+		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '"+toLatin1("생활용품")+"'"
 		    		+ ") LIMIT 1;");
 		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
-		    		+ "SELECT * FROM (SELECT '교육','') AS tmp WHERE NOT EXISTS ("
-		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '교육'"
+		    		+ "SELECT * FROM (SELECT '"+toLatin1("교육")+"','') AS tmp WHERE NOT EXISTS ("
+		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '"+toLatin1("교육")+"'"
 		    		+ ") LIMIT 1;");
 		}
 		catch(Exception e)
@@ -68,5 +66,10 @@ public class CategoryDBManager
 	{
 		
 	}
+	
+	 private static String toLatin1(String str)
+	         throws java.io.UnsupportedEncodingException {
+	            return new String(str.getBytes(), "ISO-8859-1");
+	         }
 
 }
