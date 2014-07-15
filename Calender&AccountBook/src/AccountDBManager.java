@@ -14,13 +14,15 @@ public class AccountDBManager
 			String driverName = "com.mysql.jdbc.Driver";
 			String DBName = "accountdb";
 			String dbURL = "jdbc:mysql://localhost:3306/"; // URL ÁöÁ¤
-			String sqlCT = "CREATE TABLE IF NOT EXISTS account (" +
+			String sqlCT = "CREATE TABLE IF NOT EXISTS account (" + 
+					"date varchar(20) NOT NULL, " + 
 					"incomeCategory varchar(20)  NOT NULL, " +
 					"expenseCategory varchar(20) NOT NULL, " +
 					"cash varchar(20) NOT NULL, " +
 					"income int NOT NULL, " +
 					"expense int NOT NULL, " +
-					"breakDown text NOT NULL " +
+					"breakDown text NOT NULL, " +
+					"count int NOT NULL" +
 					");";
 
 			Class.forName(driverName);

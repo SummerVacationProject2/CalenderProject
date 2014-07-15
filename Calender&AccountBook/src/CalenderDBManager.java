@@ -19,7 +19,8 @@ public class CalenderDBManager
 					"date varchar(20) NOT NULL, " +
 					"startTime varchar(20) NOT NULL, " +
 					"endTime varchar(20) NOT NULL, " +
-					"schedule text NOT NULL" +
+					"schedule text NOT NULL, " +
+					"count int NOT NULL" +
 					");";
 
 			Class.forName(driverName);
