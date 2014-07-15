@@ -28,24 +28,24 @@ public class CategoryDBManager
 		    stmt = con.createStatement();
 		    stmt.executeUpdate(sqlCT);
 		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
-		    		+ "SELECT * FROM (SELECT '"+toLatin1("식비")+"', '"+toLatin1("주수입")+"') AS tmp WHERE NOT EXISTS ("
-		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '"+toLatin1("식비")+"'"
+		    		+ "SELECT * FROM (SELECT '"+toLatin1("주수입")+"', '"+toLatin1("식비")+"') AS tmp WHERE NOT EXISTS ("
+		    		+ "SELECT expenseCategory FROM category WHERE expenseCategory = '"+toLatin1("식비")+"'"
 		    		+ ") LIMIT 1;");
 		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
-		    		+ "SELECT * FROM (SELECT '"+toLatin1("주거/통신")+"', '"+toLatin1("부수입")+"') AS tmp WHERE NOT EXISTS ("
-		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '"+toLatin1("주거/통신")+"'"
+		    		+ "SELECT * FROM (SELECT '"+toLatin1("부수입")+"', '"+toLatin1("주거/통신")+"') AS tmp WHERE NOT EXISTS ("
+		    		+ "SELECT expenseCategory FROM category WHERE expenseCategory = '"+toLatin1("주거/통신")+"'"
 		    		+ ") LIMIT 1;");
 		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
-		    		+ "SELECT * FROM (SELECT '"+toLatin1("미용")+"','') AS tmp WHERE NOT EXISTS ("
-		    		+ "SELECT * FROM category WHERE incomeCategory = '"+toLatin1("미용")+"'"
+		    		+ "SELECT * FROM (SELECT '','"+toLatin1("미용")+"') AS tmp WHERE NOT EXISTS ("
+		    		+ "SELECT * FROM category WHERE expenseCategory = '"+toLatin1("미용")+"'"
 		    		+ ") LIMIT 1;");
 		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
-		    		+ "SELECT * FROM (SELECT '"+toLatin1("생활용품")+"','') AS tmp WHERE NOT EXISTS ("
-		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '"+toLatin1("생활용품")+"'"
+		    		+ "SELECT * FROM (SELECT '','"+toLatin1("생활용품")+"') AS tmp WHERE NOT EXISTS ("
+		    		+ "SELECT expenseCategory FROM category WHERE expenseCategory = '"+toLatin1("생활용품")+"'"
 		    		+ ") LIMIT 1;");
 		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
-		    		+ "SELECT * FROM (SELECT '"+toLatin1("교육")+"','') AS tmp WHERE NOT EXISTS ("
-		    		+ "SELECT incomeCategory FROM category WHERE incomeCategory = '"+toLatin1("교육")+"'"
+		    		+ "SELECT * FROM (SELECT '','"+toLatin1("교육")+"') AS tmp WHERE NOT EXISTS ("
+		    		+ "SELECT expenseCategory FROM category WHERE expenseCategory = '"+toLatin1("교육")+"'"
 		    		+ ") LIMIT 1;");
 		}
 		catch(Exception e)
