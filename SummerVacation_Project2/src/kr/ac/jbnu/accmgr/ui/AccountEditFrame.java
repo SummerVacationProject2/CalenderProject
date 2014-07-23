@@ -158,7 +158,7 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 					|| (tf_income.getText().equals("") && tf_expense.getText().equals("")))
 			{
 				System.out.println("**");
-				JOptionPane.showMessageDialog(null, "모두 입력하시오.", "확인!", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "수입 또는 지출을 입력하시오.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
 			
 			else
