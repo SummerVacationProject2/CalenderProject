@@ -14,6 +14,7 @@ public class Manager
 {
 	CategoryDBManager cdb = new CategoryDBManager();
 	CalenderDBManager cd = new CalenderDBManager();
+	AccountDBManager ac = new AccountDBManager();
 
 	public void getCategory(ArrayList<String> incomeCategory,ArrayList<String> expenseCategory)
 	{
@@ -111,8 +112,8 @@ public class Manager
 		
 		try
 		{
-	        cd.stmt = cd.con.createStatement();
-	        rs = cd.stmt.executeQuery("select DISTINCT * from account where "
+	        ac.stmt = ac.con.createStatement();
+	        rs = ac.stmt.executeQuery("select DISTINCT * from account where "
 					+ "date like '" + date + "%' and " 
 					+ "incomeCategory like '" + "" + "%' and "
 					+ "expenseCategory like '" + "" + "%' and "
@@ -135,6 +136,22 @@ public class Manager
 			catch(SQLException se) {
 	            System.out.println(se.getMessage());
 	}
+	}
+	public void deleteAccount(String[] str)
+	{
+		try {
+			ac.stmt.executeUpdate("delete from account where "
+                 + "date = '" + str[0] + "' and " 
+                 + "incomeCategory = '" + str[1] + "' and " 
+                 + "expenseCategory = '" + str[2] + "' and "
+                 + "cash = '" + str[3] + "' and "
+                 + "income = '" + str[4] + "' and "
+                 + "expense = '" + str[5] + "' and "
+                 + "breakdown = '" + str[6] + "';");
+        } catch (SQLException e1) {
+           e1.printStackTrace();
+        }
+
 	}
 }
         

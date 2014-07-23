@@ -306,14 +306,28 @@ public class InputFrame extends JFrame implements ActionListener
 			int row = scheduleTable.getSelectedRow();
 	        String[] str = new String[4];
 	        str[0] = date;
-	        //System.out.println("str["+0+"]" + " : " + str[0]);
+	        
 	        for(int i=1; i<str.length;i++)
 	        {
 	           str[i] = scheduleModel.getValueAt(row, i-1).toString();
-	           //System.out.println("str["+i+"]" + " : " + str[i]);
 	        }
+	        
 			scheduleModel.removeRow(row);
 			m.deleteSchedule(str);
+		}
+		else if(e.getSource().equals(btnDelete2))
+		{
+			int row = accountTable.getSelectedRow();
+	        String[] str = new String[7];
+	        str[0] = date;
+	        
+	        for(int i=1; i<str.length;i++)
+	        {
+	           str[i] = accountModel.getValueAt(row, i-1).toString();
+	        }
+	        
+	        accountModel.removeRow(row);
+			m.deleteAccount(str);
 		}
 		else if(e.getSource().equals(btnModify1))
 		{
@@ -333,6 +347,25 @@ public class InputFrame extends JFrame implements ActionListener
 	        	EditFrame ef = new EditFrame();
 	        	ef.setRow(entity);
 	        	this.setVisible(false);
+	        }
+		}
+		else if(e.getSource().equals(btnModify2))
+		{
+			int row = accountTable.getSelectedRow();
+	        String[] str = new String[7];
+	        str[0] = date;
+	        
+	        if(row > -1)
+	        {
+	        	for(int i=1; i<str.length;i++)
+		        {
+		           str[i] = accountModel.getValueAt(row, i-1).toString();
+		        }
+	        	aentity.setRow(row);
+	        	aentity.setString(str);
+	        	AccountEditFrame aEF = new AccountEditFrame();
+	        	aEF.setRow(aentity);
+	        	setVisible(false);
 	        }
 		}
 		else if(e.getSource().equals(btnBack))
