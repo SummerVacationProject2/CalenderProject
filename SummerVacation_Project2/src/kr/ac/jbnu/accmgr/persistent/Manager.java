@@ -85,21 +85,6 @@ public class Manager
            e1.printStackTrace();
         }
 	}
-	
-	/*public void editSchedule(String[] str,String[] change)
-	{
-		try {
-			cd.stmt.executeUpdate("UPDATE calender SET "
-					+ "name = CASE"
-					+ "WHEN id = 1 THEN "lion"
-					+ "WHEN id = 2 THEN "cat"
-					+ "END WHERE"
-					+ "name IN (1, 2));"
-					);
-        } catch (SQLException e1) {
-           e1.printStackTrace();
-        }
-	}*/
 	public void getAccount(String date,DefaultTableModel accountModel)
 	{
 		ResultSet rs = null;
@@ -152,6 +137,75 @@ public class Manager
            e1.printStackTrace();
         }
 
+	}
+	public void insertCategory(String category,int num)
+	{
+		if(num == 0)//incomeCategory老 锭
+		{
+			try 
+			{
+				cdb.stmt = cdb.con.createStatement();
+				cdb.stmt.executeUpdate("insert into category(incomeCategory,expenseCategory)"
+						+ "values('"+category+"','');");
+			}
+			catch(SQLException se)
+			{
+				System.out.println(se.getMessage());
+			}
+		}
+		else if(num == 1)//expenseCategory老 锭
+		{
+			try 
+			{
+				cdb.stmt = cdb.con.createStatement();
+				cdb.stmt.executeUpdate("insert into category(incomeCategory,expenseCategory)"
+						+ "values('','"+category+"');");
+			}
+			catch(SQLException se)
+			{
+				System.out.println(se.getMessage());
+			}
+		}
+		
+	}
+	public void deleteCategory(String category,int num)
+	{
+		if(num == 0)//incomeCategory老 锭
+		{
+			try 
+			{
+				cdb.stmt = cdb.con.createStatement();
+				cdb.stmt.executeUpdate("delete from category where "
+	                 + "incomeCategory = '" + category + "';");
+	        } catch (SQLException e1) 
+	        {
+	           e1.printStackTrace();
+	        }
+		}
+		else if(num == 1)//expenseCategory老 锭
+		{
+			try 
+			{
+				cdb.stmt = cdb.con.createStatement();
+				cdb.stmt.executeUpdate("delete from category where "
+	                 + "incomeCategory = '" + "" + "' and " 
+	                 + "expenseCategory = '" + category + "';");
+	        } catch (SQLException e1) 
+	        {
+	           e1.printStackTrace();
+	        }
+		}
+	}
+	public void resetAccount()
+	{
+		try
+		{
+			ac.stmt.executeUpdate("drop table account;");
+		}
+		catch (SQLException e1) 
+        {
+	           e1.printStackTrace();
+	    }
 	}
 }
         

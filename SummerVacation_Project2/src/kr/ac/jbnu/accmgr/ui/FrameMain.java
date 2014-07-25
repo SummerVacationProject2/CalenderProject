@@ -33,7 +33,7 @@ class SwingCalender extends JFrame implements ActionListener
     Color bc,fc;
     Calendar today;
     Calendar cal;
-    JButton btnBefore,btnAfter;
+    JButton btnBefore,btnAfter,btnSetting;
     JButton[] calBtn = new JButton[49];
     JLabel thing;
     JLabel time,labelIncome,labelExpen,labelBalance;
@@ -57,6 +57,7 @@ class SwingCalender extends JFrame implements ActionListener
     	txtYear.setEnabled(false);
     	txtMonth.setEnabled(false);
     	panNorth.add(btnAfter = new JButton("After"));
+    	panNorth.add(btnSetting = new JButton("가계부설정"));
     	f=new Font("Sherif",Font.BOLD,18);
     	txtYear.setFont(f);
     	txtMonth.setFont(f);
@@ -81,6 +82,7 @@ class SwingCalender extends JFrame implements ActionListener
     	
     	btnBefore.addActionListener(this);
     	btnAfter.addActionListener(this);
+    	btnSetting.addActionListener(this);
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	setTitle("Calender&Account Book");
     	setBounds(100,100,645,550);
@@ -179,6 +181,11 @@ class SwingCalender extends JFrame implements ActionListener
     		hideInit();
     		this.txtYear.setText(year+"년");
     		this.txtMonth.setText(month+"월");
+    	}
+    	else if(ae.getSource().equals(btnSetting))
+    	{
+    		new AccountSettingFrame();
+    		setVisible(false);
     	}
     	else if(Integer.parseInt(ae.getActionCommand()) >= 1 && 
     			Integer.parseInt(ae.getActionCommand()) <=31)

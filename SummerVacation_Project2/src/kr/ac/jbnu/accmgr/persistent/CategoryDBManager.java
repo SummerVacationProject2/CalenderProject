@@ -30,7 +30,7 @@ public class CategoryDBManager
 		    con  = DriverManager.getConnection(dbURL+DBName,"root","1412");
 		    stmt = con.createStatement();
 		    stmt.executeUpdate(sqlCT);
-		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
+/*		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
 		    		+ "SELECT * FROM (SELECT '주수입', '식비') AS tmp WHERE NOT EXISTS ("
 		    		+ "SELECT expenseCategory FROM category WHERE expenseCategory = '식비'"
 		    		+ ") LIMIT 1;");
@@ -49,7 +49,7 @@ public class CategoryDBManager
 		    stmt.executeUpdate("INSERT INTO category (incomeCategory,expenseCategory)"
 		    		+ "SELECT * FROM (SELECT '','교육') AS tmp WHERE NOT EXISTS ("
 		    		+ "SELECT expenseCategory FROM category WHERE expenseCategory = '교육'"
-		    		+ ") LIMIT 1;");
+		    		+ ") LIMIT 1;");*/
 		}
 		catch(Exception e)
 		{
