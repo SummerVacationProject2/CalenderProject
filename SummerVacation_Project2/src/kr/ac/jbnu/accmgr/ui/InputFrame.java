@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -37,7 +38,7 @@ public class InputFrame extends JFrame implements ActionListener
 	String startTime,endTime,schedule;
 	String incomeCate,expenseCate,cashCate,income,expense,breakdown;
 	
-	int totalIncome, totalExpense = 0;
+	int totalIncome, totalExpense, result = 0;
 	
 	JPanel panSchedule,panAccountBook;
 	JLabel labSchedule,labAccountBook,label,labelIncome,labelExpense,label2,label3,label4;
@@ -47,18 +48,15 @@ public class InputFrame extends JFrame implements ActionListener
 	JTable scheduleTable,accountTable;
 	static JButton btnInput1 = new JButton("입력");
 	JButton btnInput2,btnModify1,btnModify2,btnDelete1,btnDelete2,btnBack;
-	
-//	DefaultTableModel scheduleModel = new DefaultTableModel(scheduleRow,0);
+
 	ScheduleEntity scheduleModel; 
 	AccountEntity accountModel;
-	//DefaultTableModel accountModel = new DefaultTableModel(accountRow,0);
 	
 	public InputFrame(String date)
 	{
 		setSize(700,440);
 		setTitle("Calender&Account Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    //this.setLayout(null);
 		this.date = date;
 		scheduleModel = new ScheduleEntity(date);
 		accountModel = new AccountEntity(date);
@@ -91,8 +89,6 @@ public class InputFrame extends JFrame implements ActionListener
 	    jsp.setBounds(7, 69, 290, 244);
 	    jsp.setVisible(true);
 	    
-//	    scheduleModel.setRowCount(0);
-//		m.getSchedule(date, scheduleModel);
 		scheduleTable.setModel(scheduleModel);
 		scheduleModel.fireTableDataChanged();
         scheduleTable.requestFocusInWindow();
@@ -166,6 +162,10 @@ public class InputFrame extends JFrame implements ActionListener
 	    btnModify2.setBounds(414, 320, 60, 24);
 	    panAccountBook.add(btnDelete2 = new JButton("삭제"));
 	    btnDelete2.setBounds(480, 320, 60, 24);
+	    
+	    totalIncome = m.getIncome(date);
+	    totalExpense = m.getExpense(date);
+	    
 	    panAccountBook.add(labelIncome = new JLabel("총 수입 : " + totalIncome + "원"));
 	    labelIncome.setBounds(557, 318, 150, 15);
 	    panAccountBook.add(labelExpense = new JLabel("총 지출 : " + totalExpense + "원"));
@@ -285,14 +285,12 @@ public class InputFrame extends JFrame implements ActionListener
 					|| endHourBox.getSelectedIndex() == 0
 					|| endMinuteBox.getSelectedIndex() == 0)
 			{
-				//아무것도안함ㅇㅇ...
+
 			}
 			else
 			{
 			setInsertScheduleData();
 			insert.insertScheduleData(date, startTime, endTime, schedule);
-//			scheduleModel.setRowCount(0);
-//			m.getSchedule(date, scheduleModel);
 			String [] value = {startTime,endTime,schedule};
 			scheduleTable.setModel(scheduleModel);
 			scheduleModel.fireTableDataChanged();
@@ -301,33 +299,68 @@ public class InputFrame extends JFrame implements ActionListener
 			txtSchedule.setText("");
 			}
 		}
+		else if(e.getSource().equals(btnInput2))
+		{
+			if(txtBreakdown.getText().equals("") 
+					|| (incomeBox.getSelectedIndex()==0 && expenseBox.getSelectedIndex() == 0)
+					|| (txtIncome.getText().equals("") && txtExpense.getText().equals("")))
+			{
+				
+			}
+			else
+			{
+				setInsertAccountData();
+				insert.insertAccountData(date, incomeCate,expenseCate,cashCate,income,expense,breakdown);
+				String [] value = {incomeCate,expenseCate,cashCate,income,expense,breakdown};
+
+		        accountTable.setModel(accountModel);
+		        accountModel.fireTableDataChanged();
+		        accountModel.insertData(value);
+		        accountTable.requestFocusInWindow();
+				txtIncome.setText("");
+				txtExpense.setText("");
+				txtBreakdown.setText("");
+				labelIncome.setText("총 수입 : " + m.getIncome(date) + "원");
+			    labelExpense.setText("총 수입 : " + m.getExpense(date) + "원");
+			}
+		}
 		else if(e.getSource().equals(btnDelete1))
 		{
-			int row = scheduleTable.getSelectedRow();
-	        String[] str = new String[4];
-	        str[0] = date;
-	        
-	        for(int i=1; i<str.length;i++)
-	        {
-	           str[i] = scheduleModel.getValueAt(row, i-1).toString();
-	        }
-	        
-			scheduleModel.removeRow(row);
-			m.deleteSchedule(str);
+			result = JOptionPane.showConfirmDialog(null, "삭제하시겠습니까?","일정삭제",JOptionPane.YES_NO_CANCEL_OPTION);
+			if(result == 0)
+			{
+				int row = scheduleTable.getSelectedRow();
+		        String[] str = new String[4];
+		        str[0] = date;
+		        
+		        for(int i=1; i<str.length;i++)
+		        {
+		           str[i] = scheduleModel.getValueAt(row, i-1).toString();
+		        }
+		        
+				scheduleModel.removeRow(row);
+				m.deleteSchedule(str);
+			}
 		}
 		else if(e.getSource().equals(btnDelete2))
 		{
-			int row = accountTable.getSelectedRow();
-	        String[] str = new String[7];
-	        str[0] = date;
-	        
-	        for(int i=1; i<str.length;i++)
-	        {
-	           str[i] = accountModel.getValueAt(row, i-1).toString();
-	        }
-	        
-	        accountModel.removeRow(row);
-			m.deleteAccount(str);
+			result = JOptionPane.showConfirmDialog(null, "삭제하시겠습니까?","가계부삭제",JOptionPane.YES_NO_CANCEL_OPTION);
+			if(result == 0)
+			{
+				int row = accountTable.getSelectedRow();
+		        String[] str = new String[7];
+		        str[0] = date;
+		        
+		        for(int i=1; i<str.length;i++)
+		        {
+		           str[i] = accountModel.getValueAt(row, i-1).toString();
+		        }
+		        
+		        accountModel.removeRow(row);
+				m.deleteAccount(str);
+				labelIncome.setText("총 수입 : " + m.getIncome(date) + "원");
+			    labelExpense.setText("총 수입 : " + m.getExpense(date) + "원");
+			}
 		}
 		else if(e.getSource().equals(btnModify1))
 		{
@@ -341,7 +374,6 @@ public class InputFrame extends JFrame implements ActionListener
 		        {
 		           str[i] = scheduleModel.getValueAt(row, i-1).toString();
 		        }
-				//scheduleModel.removeRow(row); 수정 프레임에 있는 수정버튼이 눌렸을 때 테이블에 있는 일정을 삭제
 	        	entity.setRow(row);
 	        	entity.setString(str);
 	        	EditFrame ef = new EditFrame();
@@ -371,29 +403,6 @@ public class InputFrame extends JFrame implements ActionListener
 		else if(e.getSource().equals(btnBack))
 		{
 			setVisible(false);
-		}
-		else if(e.getSource().equals(btnInput2))
-		{
-			if(txtBreakdown.getText().equals("") 
-					|| (incomeBox.getSelectedIndex()==0 && expenseBox.getSelectedIndex() == 0)
-					|| (txtIncome.getText().equals("") && txtExpense.getText().equals("")))
-			{
-				//아무것도안함ㅇㅇ...
-			}
-			else
-			{
-				setInsertAccountData();
-				insert.insertAccountData(date, incomeCate,expenseCate,cashCate,income,expense,breakdown);
-				String [] value = {incomeCate,expenseCate,cashCate,income,expense,breakdown};
-
-		        accountTable.setModel(accountModel);
-		        accountModel.fireTableDataChanged();
-		        accountModel.insertData(value);
-		        accountTable.requestFocusInWindow();
-				txtIncome.setText("");
-				txtExpense.setText("");
-				txtBreakdown.setText("");
-			}
 		}
 	}
 }

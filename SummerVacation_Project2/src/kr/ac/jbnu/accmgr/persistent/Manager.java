@@ -207,6 +207,68 @@ public class Manager
 	           e1.printStackTrace();
 	    }
 	}
+	public int getIncome(String date)
+	{
+		ResultSet rs = null;
+		ArrayList<Integer> income = new ArrayList<Integer>();
+		int totalIncome = 0;
+		
+		try
+		{
+			
+			ac.stmt = ac.con.createStatement();
+			rs = ac.stmt.executeQuery("select * from account where "
+					+ "date like '" + date + "%';");
+			
+			while(rs.next())
+			{
+				if(!rs.getString("income").equals(""))
+				{
+					income.add(Integer.parseInt(rs.getString("income")));
+				}
+			}
+		}
+		catch (SQLException e1) 
+        {
+	           e1.printStackTrace();
+	    }
+		
+		for(int i=0; i<income.size(); i++)
+			totalIncome += income.get(i);
+		
+		return totalIncome;
+	}
+	public int getExpense(String date)
+	{
+		ResultSet rs = null;
+		ArrayList<Integer> expense = new ArrayList<Integer>();
+		int totalExpense = 0;
+		
+		try
+		{
+			
+			ac.stmt = ac.con.createStatement();
+			rs = ac.stmt.executeQuery("select * from account where "
+					+ "date like '" + date + "%';");
+			
+			while(rs.next())
+			{
+				if(!rs.getString("expense").equals(""))
+				{
+					expense.add(Integer.parseInt(rs.getString("expense")));
+				}
+			}
+		}
+		catch (SQLException e1) 
+        {
+	           e1.printStackTrace();
+	    }
+		
+		for(int i=0; i<expense.size(); i++)
+			totalExpense += expense.get(i);
+		
+		return totalExpense;
+	}
 }
         
 

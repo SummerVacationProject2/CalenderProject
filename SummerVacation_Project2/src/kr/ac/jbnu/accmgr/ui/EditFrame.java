@@ -1,20 +1,18 @@
 package kr.ac.jbnu.accmgr.ui;
 
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import kr.ac.jbnu.accmgr.model.ScheduleItem;
 import kr.ac.jbnu.accmgr.persistent.CalenderDBManager;
 import kr.ac.jbnu.accmgr.persistent.Manager;
 
@@ -25,7 +23,7 @@ public class EditFrame extends JFrame implements ActionListener
 	EditFrame EF;
 	JPanel panel;
 	CalenderDBManager cd = new CalenderDBManager();
-	Button edit_btn,cancle_btn;
+	JButton edit_btn,cancle_btn;
 	TextField textField_2;
 	JLabel warning;
 	JComboBox combostarthour, combostartmin, comboendhour ,comboendmin;
@@ -64,13 +62,13 @@ public class EditFrame extends JFrame implements ActionListener
 		lb_Plan.setBounds(100, 153, 69, 23);
 		panel.add(lb_Plan);
 		
-		edit_btn = new Button("수정");
+		edit_btn = new JButton("수정");
 		edit_btn.addActionListener(this);
 		
 		edit_btn.setBounds(128, 211, 76, 23);
 		panel.add(edit_btn);
 		
-		cancle_btn = new Button("취소");
+		cancle_btn = new JButton("취소");
 		cancle_btn.addActionListener(this);
 		
 		cancle_btn.setBounds(243, 211, 76, 23);
@@ -169,18 +167,20 @@ public class EditFrame extends JFrame implements ActionListener
 			}
 			else
 			{
-				setModifyScheduleData();
-				//String[] value = {str[1],str[2],str[3]};
-				m.deleteSchedule(str);
-				insert.insertScheduleData(str[0],startTime,endTime,schedule);
-				new InputFrame(str[0]);
-				dispose();
-				//setVisible(false);
+				int result;
+				result = JOptionPane.showConfirmDialog(null, "수정하시겠습니까?","가계부수정",JOptionPane.YES_NO_CANCEL_OPTION);
+				if(result == 0)
+				{
+					setModifyScheduleData();
+					m.deleteSchedule(str);
+					insert.insertScheduleData(str[0],startTime,endTime,schedule);
+					new InputFrame(str[0]);
+					dispose();
+				}
 			}
 		}
 		else if(e.getSource().equals(cancle_btn))
 		{
-			//setVisible(false);
 			dispose();
 			new InputFrame(str[0]);
 		}
