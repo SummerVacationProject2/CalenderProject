@@ -45,7 +45,8 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 	
 	int result;
 
-	public AccountEditFrame() {
+	public AccountEditFrame() 
+	{
 		setTitle("수정");
 		setBounds(100, 100, 558, 371);
 		getContentPane().setLayout(null);
@@ -56,13 +57,6 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 		btn_Edit.addActionListener(this);
 		
 		btn_Cancel = new JButton("취소");
-		btn_Cancel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) 
-			{
-				setVisible(false);
-			}
-		});
 		btn_Cancel.addActionListener(this);
 		btn_Cancel.setBounds(318, 250, 105, 25);
 		getContentPane().add(btn_Cancel);
@@ -73,25 +67,25 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 	    expenseStr = new String[expenseCategory.size()+1];
 	    
 	    for(int i=0; i<incomeCategory.size();i++)
-	      {
-	    	  if(i==0)
-	    	  {
-	    		  incomeStr[i] = "수입분류";
-	    		  incomeStr[i+1] = incomeCategory.get(i);
-	    	  }
-	    	  else
-	    		  incomeStr[i+1] = incomeCategory.get(i);
-	      }
-	      for(int i=0; i<expenseCategory.size();i++)
-	      {
-	    	  if(i==0)
-	    	  {
-	    		  expenseStr[i] = "지출분류";
-	    		  expenseStr[i+1] = expenseCategory.get(i);
-	    	  }
-	    	  else
-	    		  expenseStr[i+1] = expenseCategory.get(i);
-	      }
+	    {
+	    	if(i==0)
+	    	{
+	    		incomeStr[i] = "수입분류";
+	    		incomeStr[i+1] = incomeCategory.get(i);
+	    	}
+	    	else
+	    		incomeStr[i+1] = incomeCategory.get(i);
+	    	}
+	    for(int i=0; i<expenseCategory.size();i++)
+	    {
+	    	if(i==0)
+	    	{
+	    		expenseStr[i] = "지출분류";
+	    		expenseStr[i+1] = expenseCategory.get(i);
+	    	}
+	    	else
+	    		expenseStr[i+1] = expenseCategory.get(i);
+	    }
 		
 		comboBox_income = new JComboBox(incomeStr);
 		comboBox_income.setBounds(58, 60, 116, 23);
@@ -137,7 +131,6 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
-	
 	
 	public void setModifyAccountData()
 	{

@@ -19,9 +19,11 @@ import javax.swing.JTextField;
 import kr.ac.jbnu.accmgr.persistent.AccountDBManager;
 import kr.ac.jbnu.accmgr.persistent.CalenderDBManager;
 import kr.ac.jbnu.accmgr.persistent.CategoryDBManager;
+import kr.ac.jbnu.accmgr.persistent.Manager;
 
 class SwingCalender extends JFrame implements ActionListener
 {
+	Manager m = new Manager();
 	Date d = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	
     String todayDate = sdf.format(d);
@@ -101,7 +103,6 @@ class SwingCalender extends JFrame implements ActionListener
     	 * ,THURSDAY,FRIDAY, 및 SATURDAY 가 됩니다.
     	 * get()메소드의 의해 요일이 숫자로 반환
     	 */
-    	
     	int j=0;
     	int hopping=0;
     	calBtn[0].setForeground(new Color(255,0,0));//일요일 "일"
@@ -208,10 +209,8 @@ class SwingCalender extends JFrame implements ActionListener
             		date = year+"-0"+month+"-0"+day;
             }
             
-            System.out.println(todayDate + "**" + date);
             if(todayDate.equals(date) ||todayDate.compareTo(date) < 0)
             {
-                System.out.println(+year+"-"+month+"-"+day);
                 InputFrame.txtSchedule.setEditable(true);
             	InputFrame.btnInput1.setEnabled(true);
                 new InputFrame(date);
@@ -220,7 +219,6 @@ class SwingCalender extends JFrame implements ActionListener
             }
             else
             {
-            	System.out.println(+year+"-"+month+"-"+day);
             	InputFrame.txtSchedule.setEditable(false);
             	InputFrame.btnInput1.setEnabled(false);
             	new InputFrame(date);
@@ -283,12 +281,12 @@ public class FrameMain
 {
 	public static void main(String[] args)
 	{
-		SwingCalender jdbc = new SwingCalender();
 		CalenderDBManager cdb = new CalenderDBManager();
 		AccountDBManager adb = new AccountDBManager();
 		CategoryDBManager tdb = new CategoryDBManager();
 		cdb.scheduledbManager();
 		adb.accountdbManager();
 		tdb.categorydbManager();
+		SwingCalender jdbc = new SwingCalender();
 	}
 }

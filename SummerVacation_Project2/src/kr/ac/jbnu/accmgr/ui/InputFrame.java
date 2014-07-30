@@ -29,8 +29,6 @@ public class InputFrame extends JFrame implements ActionListener
 	AccountTableEntity aentity;
 	
 	String[] cash = {"현금"};
-	String[] scheduleRow = {"시작시간","종료시간","일정"};
-	String[] accountRow = {"수입분류","지출분류","현금","수입","지출","내역"};
 	String[] hour = {"시","1","2","3","4","5","6","7","8","9","10","11","12",
 			"13","14","15","16","17","18","19","20","21","22","23","24"};
 	String[] minute = {"분","00","10","20","30","40","50"};
@@ -236,40 +234,40 @@ public class InputFrame extends JFrame implements ActionListener
 	public void setInsertAccountData()
 	{
 		for(int i=1; i<incomeStr.length; i++)
-	      {
-	         if(i == incomeBox.getSelectedIndex())
-	         {
-	            incomeCate = incomeBox.getSelectedItem().toString();
-	         }
-	         else
-	            continue;
-	      }
+		{
+			if(i == incomeBox.getSelectedIndex())
+			{
+				incomeCate = incomeBox.getSelectedItem().toString();
+			}
+			else
+				continue;
+		}
 		if(incomeBox.getSelectedIndex() == 0)
 		{
 			incomeCate = " ";
 		}
 		for(int i=1; i<expenseStr.length; i++)
-	      {
-	         if(i == expenseBox.getSelectedIndex())
-	         {
-	            expenseCate = expenseBox.getSelectedItem().toString();
-	         }
-	         else
-	            continue;
-	      }
+		{
+			if(i == expenseBox.getSelectedIndex())
+			{
+				expenseCate = expenseBox.getSelectedItem().toString();
+			}
+			else
+				continue;
+		}
 		if(expenseBox.getSelectedIndex() == 0)
 		{
 			expenseCate = " ";
 		}
 		for(int i=0; i<cash.length; i++)
-	      {
-	         if(i == cashBox.getSelectedIndex())
-	         {
-	            cashCate = cashBox.getSelectedItem().toString();
-	         }
-	         else
-	            continue;
-	      }
+		{
+			if(i == cashBox.getSelectedIndex())
+			{
+				cashCate = cashBox.getSelectedItem().toString();
+			}
+			else
+				continue;
+		}
 
 		income = txtIncome.getText().toString();
 		expense = txtExpense.getText().toString();

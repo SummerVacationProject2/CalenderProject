@@ -16,8 +16,6 @@ import javax.swing.JPanel;
 import kr.ac.jbnu.accmgr.persistent.CalenderDBManager;
 import kr.ac.jbnu.accmgr.persistent.Manager;
 
-
-
 public class EditFrame extends JFrame implements ActionListener
 {
 	EditFrame EF;
@@ -107,41 +105,44 @@ public class EditFrame extends JFrame implements ActionListener
 	public void setModifyScheduleData()
 	{
 		for(int i=1; i<hours.length; i++)
-	      {
-	         if(i == combostarthour.getSelectedIndex())
-	         {
-	            startTime = combostarthour.getSelectedItem().toString() + " : ";
-	         }
-	         else
-	            continue;
-	      }
+		{
+			if(i == combostarthour.getSelectedIndex())
+			{
+				startTime = combostarthour.getSelectedItem().toString() + " : ";
+			}
+			else
+				continue;
+		}
+		
 		for(int i=1; i<minutes.length; i++)
-	      {
-	         if(i == combostartmin.getSelectedIndex())
-	         {
-	            startTime += combostartmin.getSelectedItem().toString();
-	         }
-	         else
-	            continue;
-	      }
+		{
+			if(i == combostartmin.getSelectedIndex())
+			{
+				startTime += combostartmin.getSelectedItem().toString();
+			}
+			else
+				continue;
+		}
+		
 		for(int i=1; i<hours.length; i++)
-	      {
-	         if(i == comboendhour.getSelectedIndex())
-	         {
-	            endTime = comboendhour.getSelectedItem().toString() + " : ";
-	         }
-	         else
-	            continue;
-	      }
+		{
+			if(i == comboendhour.getSelectedIndex())
+			{
+				endTime = comboendhour.getSelectedItem().toString() + " : ";
+			}
+			else
+				continue;
+		}
+		
 		for(int i=1; i<minutes.length; i++)
-	      {
-	         if(i == comboendmin.getSelectedIndex())
-	         {
-	            endTime += comboendmin.getSelectedItem().toString();
-	         }
-	         else
-	            continue;
-	      }
+		{
+			if(i == comboendmin.getSelectedIndex())
+			{
+				endTime += comboendmin.getSelectedItem().toString();
+			}
+			else
+				continue;
+		}
 		
 		schedule = textField_2.getText().toString();
 	}
@@ -155,7 +156,8 @@ public class EditFrame extends JFrame implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 		if(e.getSource().equals(edit_btn))
 		{
 			if(textField_2.getText().equals("") || combostarthour.getSelectedIndex()==0
@@ -185,10 +187,4 @@ public class EditFrame extends JFrame implements ActionListener
 			new InputFrame(str[0]);
 		}
 	}
-
-	public void setRow1(ScheduleTableEntity entity2) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
