@@ -269,6 +269,66 @@ public class Manager
 		
 		return totalExpense;
 	}
+	public int getMonthIncome(String date)
+	{
+		ResultSet rs = null;
+		int totalIncome = 0;
+		
+		try
+		{
+			ac.stmt = ac.con.createStatement();
+			rs = ac.stmt.executeQuery("select sum(income) from account where date Regexp '^"+date+"';");
+			
+			while(rs.next())
+			{
+				rs.getString("sum(income)");
+				if(rs.wasNull())
+				{
+					totalIncome = 0;
+				}
+				else
+				{
+					if(!rs.getString("sum(income)").equals(""))
+						totalIncome = Integer.parseInt(rs.getString("sum(income)"));
+				}
+			}
+		}
+		catch (SQLException e1) 
+        {
+	           e1.printStackTrace();
+	    }
+		
+		return totalIncome;
+	}
+	public int getMonthExpense(String date)
+	{
+		ResultSet rs = null;
+		int totalExpense = 0;
+		
+		try
+		{
+			ac.stmt = ac.con.createStatement();
+			rs = ac.stmt.executeQuery("select sum(expense) from account where date Regexp '^"+date+"';");
+			
+			while(rs.next())
+			{
+				rs.getString("sum(expense)");
+				if(rs.wasNull())
+					totalExpense = 0;
+				else
+				{
+					if(!rs.getString("sum(expense)").equals(""))
+						totalExpense = Integer.parseInt(rs.getString("sum(expense)"));
+				}
+			}
+		}
+		catch (SQLException e1) 
+        {
+	           e1.printStackTrace();
+	    }
+		
+		return totalExpense;
+	}
 }
         
 

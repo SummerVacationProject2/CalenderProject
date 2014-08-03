@@ -25,7 +25,7 @@ class SwingCalender extends JFrame implements ActionListener
 {
 	Manager m = new Manager();
 	Date d = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     String todayDate = sdf.format(d);
     String date = "";
     
@@ -71,6 +71,8 @@ class SwingCalender extends JFrame implements ActionListener
     	calSet();
     	hideInit();
     	add(panWest,"Center");
+    	
+    	setDate();
     	
     	panSouth = new JPanel();
     	panSouth.add(labelIncome = new JLabel("월 수입 : " + totalIncome+"원     "));
@@ -159,6 +161,20 @@ class SwingCalender extends JFrame implements ActionListener
     	}//for
     }//end Calset()
     
+    public void setDate()
+    {
+    	if(month > 9 )
+    	{
+    		totalIncome = m.getMonthIncome(year+"-"+month);
+    		totalExpen = m.getMonthExpense(year+"-"+month);
+    	}
+    	else
+    	{
+    		totalIncome = m.getMonthIncome(year+"-0"+month);
+        	totalExpen = m.getMonthExpense(year+"-0"+month);
+    	}
+    }
+    
     public void actionPerformed(ActionEvent ae)
     {
     	if(ae.getSource() == btnBefore)
@@ -171,6 +187,9 @@ class SwingCalender extends JFrame implements ActionListener
     		hideInit();
     		this.txtYear.setText(year+"년");
     		this.txtMonth.setText(month+"월");
+    		setDate();
+        	labelIncome.setText("월 수입 : " + totalIncome+"원     ");
+        	labelExpen.setText("월 지출 : " + totalExpen+"원     ");
     	}
     	else if(ae.getSource() == btnAfter)
     	{
@@ -182,6 +201,9 @@ class SwingCalender extends JFrame implements ActionListener
     		hideInit();
     		this.txtYear.setText(year+"년");
     		this.txtMonth.setText(month+"월");
+    		setDate();
+        	labelIncome.setText("월 수입 : " + totalIncome+"원     ");
+        	labelExpen.setText("월 지출 : " + totalExpen+"원     ");
     	}
     	else if(ae.getSource().equals(btnSetting))
     	{
@@ -214,8 +236,8 @@ class SwingCalender extends JFrame implements ActionListener
                 InputFrame.txtSchedule.setEditable(true);
             	InputFrame.btnInput1.setEnabled(true);
                 new InputFrame(date);
-                
                 calSet();
+                setVisible(false);
             }
             else
             {
@@ -223,6 +245,7 @@ class SwingCalender extends JFrame implements ActionListener
             	InputFrame.btnInput1.setEnabled(false);
             	new InputFrame(date);
             	calSet();
+            	setVisible(false);
             }
             //버튼의 밸류 즉 1,2,3.... 문자를 정수형으로 변환하여 클릭한 날짜를 바꿔준다.
     	}
