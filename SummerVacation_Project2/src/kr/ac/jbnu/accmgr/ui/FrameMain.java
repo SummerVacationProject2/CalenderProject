@@ -85,12 +85,12 @@ class SwingCalender extends JFrame implements ActionListener
     	panSouth = new JPanel();
     	panSouth.add(labelIncome = new JLabel("월 수입 : " + totalIncome+"원     "));
     	panSouth.add(labelExpen = new JLabel("월 지출 : " + totalExpen+"원     "));
-    	panSouth.add(labelBalance = new JLabel("잔 액 : " + balance+"원     "));
+    	//panSouth.add(labelBalance = new JLabel("잔 액 : " + balance+"원     "));
     	add(panSouth,"South");
     	f=new Font("Sherif",Font.BOLD,18);
     	labelIncome.setFont(f);
     	labelExpen.setFont(f);
-    	labelBalance.setFont(f);
+    	//labelBalance.setFont(f);
     	
     	btnBefore.addActionListener(this);
     	btnAfter.addActionListener(this);
@@ -233,10 +233,6 @@ class SwingCalender extends JFrame implements ActionListener
     	{
     		setDate2();
     		new AccountChartFrame(testDate);
-    		//AccountChartFrame chartf = new AccountChartFrame("Chart");
-        	//chartf.pack();
-            //RefineryUtilities.centerFrameOnScreen(chartf);
-            //chartf.setVisible(true);
     	}
     	else if(Integer.parseInt(ae.getActionCommand()) >= 1 && 
     			Integer.parseInt(ae.getActionCommand()) <=31)
@@ -259,7 +255,6 @@ class SwingCalender extends JFrame implements ActionListener
             		date = year+"-0"+month+"-0"+day;
             }
             
-            System.out.println(todayDate + "**" + date);
             if(todayDate.equals(date) ||todayDate.compareTo(date) < 0)
             {
                 System.out.println(+year+"-"+month+"-"+day);
@@ -271,7 +266,6 @@ class SwingCalender extends JFrame implements ActionListener
             }
             else
             {
-            	System.out.println(+year+"-"+month+"-"+day);
             	InputFrame.txtSchedule.setEditable(false);
             	InputFrame.btnInput1.setEnabled(false);
             	new InputFrame(date);
