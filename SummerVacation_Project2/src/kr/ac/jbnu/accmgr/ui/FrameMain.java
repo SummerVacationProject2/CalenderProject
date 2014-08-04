@@ -258,6 +258,7 @@ class SwingCalender extends JFrame implements ActionListener
             if(todayDate.equals(date) ||todayDate.compareTo(date) < 0)
             {
                 System.out.println(+year+"-"+month+"-"+day);
+                setVisible(false);
                 InputFrame.txtSchedule.setEditable(true);
             	InputFrame.btnInput1.setEnabled(true);
                 new InputFrame(date);
@@ -268,6 +269,7 @@ class SwingCalender extends JFrame implements ActionListener
             {
             	InputFrame.txtSchedule.setEditable(false);
             	InputFrame.btnInput1.setEnabled(false);
+            	setVisible(false);
             	new InputFrame(date);
             	calSet();
             }

@@ -151,7 +151,6 @@ public class EditFrame extends JFrame implements ActionListener
 	{
 		this.entity = entity;
 		str = entity.getString();
-		System.out.println(str[0]+"***");
 		scheduleModel = new ScheduleEntity(str[0]);
 	}
 

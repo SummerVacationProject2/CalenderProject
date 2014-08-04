@@ -401,6 +401,7 @@ public class InputFrame extends JFrame implements ActionListener
 		else if(e.getSource().equals(btnBack))
 		{
 			setVisible(false);
+			new SwingCalender();
 		}
 	}
 }
