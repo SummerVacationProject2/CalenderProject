@@ -34,6 +34,7 @@ public class EditFrame extends JFrame implements ActionListener
 	ScheduleTableEntity entity;
 	ScheduleEntity scheduleModel;
 	InsertData insert = new InsertData();
+	int start;
 	
 	public EditFrame()
 	{
@@ -109,6 +110,7 @@ public class EditFrame extends JFrame implements ActionListener
 			if(i == combostarthour.getSelectedIndex())
 			{
 				startTime = combostarthour.getSelectedItem().toString() + " : ";
+				start = Integer.parseInt(combostarthour.getSelectedItem().toString());
 			}
 			else
 				continue;
@@ -174,7 +176,7 @@ public class EditFrame extends JFrame implements ActionListener
 				{
 					setModifyScheduleData();
 					m.deleteSchedule(str);
-					insert.insertScheduleData(str[0],startTime,endTime,schedule);
+					insert.insertScheduleData(str[0],startTime,endTime,schedule,start);
 					new InputFrame(str[0]);
 					dispose();
 				}

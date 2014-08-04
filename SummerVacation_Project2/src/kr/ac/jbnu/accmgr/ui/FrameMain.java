@@ -206,7 +206,6 @@ class SwingCalender extends JFrame implements ActionListener
     		this.txtYear.setText(year+"년");
     		this.txtMonth.setText(month+"월");
     		setDate();
-    		System.out.println(testDate);
         	labelIncome.setText("월 수입 : " + totalIncome+"원     ");
         	labelExpen.setText("월 지출 : " + totalExpen+"원     ");
     	}
@@ -257,7 +256,6 @@ class SwingCalender extends JFrame implements ActionListener
             
             if(todayDate.equals(date) ||todayDate.compareTo(date) < 0)
             {
-                System.out.println(+year+"-"+month+"-"+day);
                 setVisible(false);
                 InputFrame.txtSchedule.setEditable(true);
             	InputFrame.btnInput1.setEnabled(true);

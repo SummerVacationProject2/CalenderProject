@@ -12,7 +12,7 @@ public class InsertData
 	AccountDBManager ad = new AccountDBManager();
 	int count = 0;
 	
-	public void insertScheduleData(String date,String startTime,String endTime,String schedule)
+	public void insertScheduleData(String date,String startTime,String endTime,String schedule,int start)
 	{
 		cd.scheduledbManager();;
 		
@@ -21,8 +21,8 @@ public class InsertData
 		try 
 		{
 			cd.stmt = cd.con.createStatement();
-			cd.stmt.executeUpdate("insert into calender(date,startTime,endTime,schedule)"
-					+ "values('"+date+"','"+startTime+"','"+endTime+"','"+schedule+"');");
+			cd.stmt.executeUpdate("insert into calender(date,startTime,endTime,schedule,start)"
+					+ "values('"+date+"','"+startTime+"','"+endTime+"','"+schedule+"',"+start+");");
 		}
 		catch(SQLException se)
 		{

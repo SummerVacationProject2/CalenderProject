@@ -22,8 +22,8 @@ public class CalenderDBManager
 					"date varchar(20) character set utf8 NOT NULL, " +
 					"startTime varchar(20) character set utf8 NOT NULL, " +
 					"endTime varchar(20) character set utf8 NOT NULL, " +
-					"schedule varchar(80) character set utf8 NOT NULL" +
-
+					"schedule varchar(80) character set utf8 NOT NULL, " +
+					"start int NOT NULL "+
 					")default charset = utf8;";
 
 			Class.forName(driverName);

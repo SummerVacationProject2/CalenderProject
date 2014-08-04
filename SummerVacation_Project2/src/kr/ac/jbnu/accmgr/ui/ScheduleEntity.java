@@ -19,15 +19,14 @@ public class ScheduleEntity extends AbstractTableModel {
 		ResultSet rs = null;
 		
 		String arr[] = new String[3];
+		int start = 0;
 		
 		try
 		{
 	        cd.stmt = cd.con.createStatement();
-	        rs = cd.stmt.executeQuery("select DISTINCT * from calender where "
-	        		+ "date like '" + date + "%' and "
-	        		+ "startTime like '" + "" + "%' and " 
-	                + "endTime like '" + "" + "%' and "
-	                + "schedule like '" + "" + "%'; " );
+
+	        rs = cd.stmt.executeQuery("select * from calender where "
+	        		+ "date like '" + date + "%' order by start asc;");
 	         
 	         while (rs.next())
 	         {

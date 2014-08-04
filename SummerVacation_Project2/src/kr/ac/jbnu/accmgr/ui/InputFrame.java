@@ -37,6 +37,7 @@ public class InputFrame extends JFrame implements ActionListener
 	String incomeCate,expenseCate,cashCate,income,expense,breakdown;
 	
 	int totalIncome, totalExpense, result = 0;
+	int start;
 	
 	JPanel panSchedule,panAccountBook;
 	JLabel labSchedule,labAccountBook,label,labelIncome,labelExpense,label2,label3,label4;
@@ -196,6 +197,7 @@ public class InputFrame extends JFrame implements ActionListener
 	         if(i == startHourBox.getSelectedIndex())
 	         {
 	            startTime = startHourBox.getSelectedItem().toString() + " : ";
+	            start = Integer.parseInt(startHourBox.getSelectedItem().toString());
 	         }
 	         else
 	            continue;
@@ -205,6 +207,7 @@ public class InputFrame extends JFrame implements ActionListener
 	         if(i == startMinuteBox.getSelectedIndex())
 	         {
 	            startTime += startMinuteBox.getSelectedItem().toString();
+	            start = Integer.parseInt(startHourBox.getSelectedItem().toString());
 	         }
 	         else
 	            continue;
@@ -288,7 +291,7 @@ public class InputFrame extends JFrame implements ActionListener
 			else
 			{
 			setInsertScheduleData();
-			insert.insertScheduleData(date, startTime, endTime, schedule);
+			insert.insertScheduleData(date, startTime, endTime, schedule,start);
 			String [] value = {startTime,endTime,schedule};
 			scheduleTable.setModel(scheduleModel);
 			scheduleModel.fireTableDataChanged();
