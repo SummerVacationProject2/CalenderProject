@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import kr.ac.jbnu.accmgr.persistent.AccountDBManager;
 import kr.ac.jbnu.accmgr.persistent.Manager;
@@ -29,24 +28,19 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 	AccountTableEntity entity;
 	InsertData insert = new InsertData();
 	
-	Manager m = new Manager();
+	Manager m;
 	
 	JButton btn_Edit, btn_Cancel;
 	JComboBox comboBox_income, comboBox_expense, comboBox_cash;
 	JTextField tf_income, tf_expense, tf_content;
 	
-	public ArrayList<String> incomeCategory = new ArrayList<String>();
-	public ArrayList<String> expenseCategory = new ArrayList<String>();
-	
 	String[] str = new String[6];
-	String incomeStr[],expenseStr[];
+	String[] incomeItems = {"수입분류", "주수입", "부수입"};
+	String[] expenseItems = {"지출분류", "식비", "주거/통신", "미용", "생활용품", "교육"};
 	String[] cashItems = {"현금"};
 	String income, income_2, expense, expense_2, cash, content;
-	
-	int result;
 
-	public AccountEditFrame() 
-	{
+	public AccountEditFrame() {
 		setTitle("수정");
 		setBounds(100, 100, 558, 371);
 		getContentPane().setLayout(null);
@@ -57,41 +51,22 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 		btn_Edit.addActionListener(this);
 		
 		btn_Cancel = new JButton("취소");
+		btn_Cancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) 
+			{
+				setVisible(false);
+			}
+		});
 		btn_Cancel.addActionListener(this);
 		btn_Cancel.setBounds(318, 250, 105, 25);
 		getContentPane().add(btn_Cancel);
 		
-		m.getCategory(incomeCategory, expenseCategory);
-	    
-	    incomeStr = new String[incomeCategory.size()+1];
-	    expenseStr = new String[expenseCategory.size()+1];
-	    
-	    for(int i=0; i<incomeCategory.size();i++)
-	    {
-	    	if(i==0)
-	    	{
-	    		incomeStr[i] = "수입분류";
-	    		incomeStr[i+1] = incomeCategory.get(i);
-	    	}
-	    	else
-	    		incomeStr[i+1] = incomeCategory.get(i);
-	    	}
-	    for(int i=0; i<expenseCategory.size();i++)
-	    {
-	    	if(i==0)
-	    	{
-	    		expenseStr[i] = "지출분류";
-	    		expenseStr[i+1] = expenseCategory.get(i);
-	    	}
-	    	else
-	    		expenseStr[i+1] = expenseCategory.get(i);
-	    }
-		
-		comboBox_income = new JComboBox(incomeStr);
+		comboBox_income = new JComboBox(incomeItems);
 		comboBox_income.setBounds(58, 60, 116, 23);
 		getContentPane().add(comboBox_income);
 		
-		comboBox_expense = new JComboBox(expenseStr);
+		comboBox_expense = new JComboBox(expenseItems);
 		comboBox_expense.setBounds(217, 60, 116, 23);
 		getContentPane().add(comboBox_expense);
 		
@@ -132,9 +107,10 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 	
+	
 	public void setModifyAccountData()
 	{
-		for(int i = 1; i<incomeStr.length; i++)
+		for(int i = 1; i<incomeItems.length; i++)
 		{
 			if(i == comboBox_income.getSelectedIndex())
 			{
@@ -147,7 +123,7 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 		if(comboBox_income.getSelectedIndex()==0)
 			income = " ";
 		
-		for(int i = 1; i<expenseStr.length; i++)
+		for(int i = 1; i<expenseItems.length; i++)
 		{
 			if(i == comboBox_expense.getSelectedIndex())
 			{
@@ -181,25 +157,23 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 					|| (comboBox_income.getSelectedIndex() == 0 && comboBox_expense.getSelectedIndex() == 0)
 					|| (tf_income.getText().equals("") && tf_expense.getText().equals("")))
 			{
+				System.out.println("**");
 				JOptionPane.showMessageDialog(null, "모두 입력하시오.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
 			
 			else
 			{
-				result = JOptionPane.showConfirmDialog(null, "수정하시겠습니까?","가계부수정",JOptionPane.YES_NO_CANCEL_OPTION);
-				if(result == 0)
-				{
-					setModifyAccountData();
-					m = new Manager();
-					m.deleteAccount(str);
-					insert.insertAccountData(str[0], income, expense, cash, income_2, expense_2, content);
-					new InputFrame(str[0]);
-					dispose();
-				}
+				setModifyAccountData();
+				m = new Manager();
+				m.deleteAccount(str);
+				insert.insertAccountData(str[0], income, expense, cash, income_2, expense_2, content);
+				new InputFrame(str[0]);
+				dispose();
 			}
 		}
 		else if(e.getSource().equals(btn_Cancel))
 		{
+			//setVisible(false);
 			dispose();
 			new InputFrame(str[0]);
 		}

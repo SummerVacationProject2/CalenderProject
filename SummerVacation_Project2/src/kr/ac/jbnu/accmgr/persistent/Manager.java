@@ -42,6 +42,70 @@ public class Manager
 			System.out.println(se.getMessage());
 		}
 	}
+	
+	public ArrayList<String> getExpenseCategory()
+	{
+		cdb.categorydbManager();
+		ResultSet rs = null;
+		ArrayList<String> expenseCategory = new ArrayList<String>();
+		
+		try 
+		{
+			cdb.stmt = cdb.con.createStatement();
+	        rs = cdb.stmt.executeQuery("select DISTINCT expenseCategory from category;");
+	        while(rs.next())
+	        {
+	        	if(!rs.getString("expenseCategory").equals(""))
+	        		expenseCategory.add(rs.getString("expenseCategory"));
+	        }
+		}
+		catch(SQLException se)
+		{
+			System.out.println(se.getMessage());
+		}
+		
+		return expenseCategory;
+	}
+	
+	public double[] getExpenseNumber(String date,ArrayList<String> expenseCategory)
+	{
+		ArrayList<String> category = new ArrayList<String>();
+		category.addAll(expenseCategory);
+		ResultSet rs = null;
+		String str = "";
+		double count = 0;
+		double[] num = new double[category.size()];
+		
+		try
+		{
+			ac.stmt = ac.con.createStatement();
+			rs = ac.stmt.executeQuery("select * from account where date Regexp '^"+date+"';");
+			
+			for(int i=0; i < category.size(); i++)
+			{
+				while(rs.next())
+				{
+					if(!rs.getString("expenseCategory").equals(""))
+					{
+						if(category.get(i).equals(rs.getString("expenseCategory")))
+						{
+							count = Double.parseDouble(rs.getString("expense"));
+							num[i] += count;
+						}
+					}
+					count = 0;
+				}
+				rs.beforeFirst();
+			}
+		}
+		catch (SQLException e1) 
+        {
+	           e1.printStackTrace();
+	    }
+		
+		return num;
+	}
+	
 	public void getSchedule(String date,DefaultTableModel scheduleModel)
 	{
 		ResultSet rs = null;

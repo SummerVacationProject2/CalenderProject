@@ -9,14 +9,13 @@ import javax.swing.table.AbstractTableModel;
 import kr.ac.jbnu.accmgr.model.ScheduleItem;
 import kr.ac.jbnu.accmgr.persistent.CalenderDBManager;
 
-public class ScheduleEntity extends AbstractTableModel 
-{
+public class ScheduleEntity extends AbstractTableModel {
+
 	private String[] scheduleRow = {"시작시간","종료시간","일정"};
 	private ArrayList<ScheduleItem> items = new ArrayList<ScheduleItem>();
 	CalenderDBManager cd = new CalenderDBManager();
 	
-	public ScheduleEntity(String date) 
-	{
+	public ScheduleEntity(String date) {
 		ResultSet rs = null;
 		
 		String arr[] = new String[3];

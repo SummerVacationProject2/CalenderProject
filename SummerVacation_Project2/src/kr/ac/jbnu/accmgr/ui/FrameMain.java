@@ -16,18 +16,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import kr.ac.jbnu.accmgr.model.Account;
 import kr.ac.jbnu.accmgr.persistent.AccountDBManager;
 import kr.ac.jbnu.accmgr.persistent.CalenderDBManager;
 import kr.ac.jbnu.accmgr.persistent.CategoryDBManager;
 import kr.ac.jbnu.accmgr.persistent.Manager;
 
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+//import org.jfree.ui.RefineryUtilities;
+
 class SwingCalender extends JFrame implements ActionListener
 {
 	Manager m = new Manager();
 	Date d = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	
     String todayDate = sdf.format(d);
     String date = "";
+    String testDate = "";
     
 	String [] days = {"일","월","화","수","목","금","토"};
     int year ,month,day,todays,memoday,totalIncome,totalExpen,balance=0;
@@ -35,7 +41,7 @@ class SwingCalender extends JFrame implements ActionListener
     Color bc,fc;
     Calendar today;
     Calendar cal;
-    JButton btnBefore,btnAfter,btnSetting;
+    JButton btnBefore,btnAfter,btnSetting,btnChart;
     JButton[] calBtn = new JButton[49];
     JLabel thing;
     JLabel time,labelIncome,labelExpen,labelBalance;
@@ -44,7 +50,8 @@ class SwingCalender extends JFrame implements ActionListener
     JPanel panNorth;
     JTextField txtMonth,txtYear;
     JTextField txtTime;
-    BorderLayout bLayout= new BorderLayout();     
+    BorderLayout bLayout= new BorderLayout(); 
+    Account a = new Account();
        ////////////////////////////////////////
     public SwingCalender()
     {
@@ -53,12 +60,13 @@ class SwingCalender extends JFrame implements ActionListener
     	year = today.get(Calendar.YEAR);
     	month = today.get(Calendar.MONTH)+1;//1월의 값이 0 
     	panNorth = new JPanel();
-    	panNorth.add(btnBefore = new JButton("Before"));
+    	panNorth.add(btnChart = new JButton("차트"));
+    	panNorth.add(btnBefore = new JButton("<<"));
     	panNorth.add(txtYear = new JTextField(year+"년"));
     	panNorth.add(txtMonth = new JTextField( month+"월",3));
     	txtYear.setEnabled(false);
     	txtMonth.setEnabled(false);
-    	panNorth.add(btnAfter = new JButton("After"));
+    	panNorth.add(btnAfter = new JButton(">>"));
     	panNorth.add(btnSetting = new JButton("가계부설정"));
     	f=new Font("Sherif",Font.BOLD,18);
     	txtYear.setFont(f);
@@ -87,6 +95,7 @@ class SwingCalender extends JFrame implements ActionListener
     	btnBefore.addActionListener(this);
     	btnAfter.addActionListener(this);
     	btnSetting.addActionListener(this);
+    	btnChart.addActionListener(this);
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	setTitle("Calender&Account Book");
     	setBounds(100,100,645,550);
@@ -105,6 +114,7 @@ class SwingCalender extends JFrame implements ActionListener
     	 * ,THURSDAY,FRIDAY, 및 SATURDAY 가 됩니다.
     	 * get()메소드의 의해 요일이 숫자로 반환
     	 */
+    	
     	int j=0;
     	int hopping=0;
     	calBtn[0].setForeground(new Color(255,0,0));//일요일 "일"
@@ -175,6 +185,14 @@ class SwingCalender extends JFrame implements ActionListener
     	}
     }
     
+    public void setDate2()
+    {
+    	if(month > 9 )
+    		testDate = year+"-"+month;
+    	else
+    		testDate = year+"-0"+month;
+    }
+    
     public void actionPerformed(ActionEvent ae)
     {
     	if(ae.getSource() == btnBefore)
@@ -188,6 +206,7 @@ class SwingCalender extends JFrame implements ActionListener
     		this.txtYear.setText(year+"년");
     		this.txtMonth.setText(month+"월");
     		setDate();
+    		System.out.println(testDate);
         	labelIncome.setText("월 수입 : " + totalIncome+"원     ");
         	labelExpen.setText("월 지출 : " + totalExpen+"원     ");
     	}
@@ -210,6 +229,15 @@ class SwingCalender extends JFrame implements ActionListener
     		new AccountSettingFrame();
     		setVisible(false);
     	}
+    	else if(ae.getSource().equals(btnChart))
+    	{
+    		setDate2();
+    		new AccountChartFrame(testDate);
+    		//AccountChartFrame chartf = new AccountChartFrame("Chart");
+        	//chartf.pack();
+            //RefineryUtilities.centerFrameOnScreen(chartf);
+            //chartf.setVisible(true);
+    	}
     	else if(Integer.parseInt(ae.getActionCommand()) >= 1 && 
     			Integer.parseInt(ae.getActionCommand()) <=31)
     	{
@@ -231,21 +259,23 @@ class SwingCalender extends JFrame implements ActionListener
             		date = year+"-0"+month+"-0"+day;
             }
             
+            System.out.println(todayDate + "**" + date);
             if(todayDate.equals(date) ||todayDate.compareTo(date) < 0)
             {
+                System.out.println(+year+"-"+month+"-"+day);
                 InputFrame.txtSchedule.setEditable(true);
             	InputFrame.btnInput1.setEnabled(true);
                 new InputFrame(date);
+                
                 calSet();
-                setVisible(false);
             }
             else
             {
+            	System.out.println(+year+"-"+month+"-"+day);
             	InputFrame.txtSchedule.setEditable(false);
             	InputFrame.btnInput1.setEnabled(false);
             	new InputFrame(date);
             	calSet();
-            	setVisible(false);
             }
             //버튼의 밸류 즉 1,2,3.... 문자를 정수형으로 변환하여 클릭한 날짜를 바꿔준다.
     	}
