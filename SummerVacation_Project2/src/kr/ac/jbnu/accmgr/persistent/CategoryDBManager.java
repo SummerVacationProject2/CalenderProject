@@ -20,7 +20,6 @@ public class CategoryDBManager
 					"idx int primary key auto_increment, " + 
 					"incomeCategory varchar(20) character set utf8 NOT NULL, " +
 					"expenseCategory varchar(20) character set utf8 NOT NULL" +
-
 					") default charset = utf8 ;";
 
 			Class.forName(driverName);
