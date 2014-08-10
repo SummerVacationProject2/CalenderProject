@@ -320,14 +320,29 @@ public class InputFrame extends JFrame implements ActionListener
 			}
 			else
 			{
-				setInsertScheduleData();
-				insert.insertScheduleData(date, startTime, endTime, schedule,start);
-				String [] value = {startTime,endTime,schedule};
-				scheduleTable.setModel(scheduleModel);
-				scheduleModel.fireTableDataChanged();
-				scheduleModel.insertData(value);
-		        scheduleTable.requestFocusInWindow();
-				txtSchedule.setText("");
+				if((startHourBox.getSelectedIndex() <= endHourBox.getSelectedIndex()))
+				{
+					if((startHourBox.getSelectedIndex() == endHourBox.getSelectedIndex())
+							&& (startMinuteBox.getSelectedIndex() == endMinuteBox.getSelectedIndex()))
+						JOptionPane.showMessageDialog(null, "시작시간이 종료시간보다 같습니다.", "확인", JOptionPane.WARNING_MESSAGE);
+					else if(startMinuteBox.getSelectedIndex() <= endMinuteBox.getSelectedIndex())
+					{
+						setInsertScheduleData();
+						insert.insertScheduleData(date, startTime, endTime, schedule,start);
+						String [] value = {startTime,endTime,schedule};
+						scheduleTable.setModel(scheduleModel);
+						scheduleModel.fireTableDataChanged();
+						scheduleModel.insertData(value);
+				        scheduleTable.requestFocusInWindow();
+						txtSchedule.setText("");
+					}
+					else
+						JOptionPane.showMessageDialog(null, "시작시간이 종료시간보다 큽니다.", "확인", JOptionPane.WARNING_MESSAGE);
+
+					
+				}
+				else
+					JOptionPane.showMessageDialog(null, "시작시간이 종료시간보다 큽니다.", "확인", JOptionPane.WARNING_MESSAGE);
 			}
 		}
 		else if(e.getSource().equals(btnInput2))
@@ -338,11 +353,21 @@ public class InputFrame extends JFrame implements ActionListener
 			{
 				JOptionPane.showMessageDialog(null, "모든 항목을 입력해주세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
-			else if(incomeBox.getSelectedIndex()==0 && !(txtIncome.getText().equals("")))
+			else if((incomeBox.getSelectedIndex()!=0 && !txtIncome.getText().equals("") && !txtIncomeBreakdown.getText().equals(""))
+					&& (expenseBox.getSelectedIndex()!=0 || !txtExpense.getText().equals("") || !txtExpenseBreakdown.getText().equals("")))
+			{
+				JOptionPane.showMessageDialog(null, "수입,지출 하나만 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if((incomeBox.getSelectedIndex()!=0 || !txtIncome.getText().equals("") || !txtIncomeBreakdown.getText().equals(""))
+					&& (expenseBox.getSelectedIndex()!=0 && !txtExpense.getText().equals("") && !txtExpenseBreakdown.getText().equals("")))
+			{
+				JOptionPane.showMessageDialog(null, "수입,지출 하나만 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(incomeBox.getSelectedIndex()==0 && (!txtIncome.getText().equals("") || !txtIncomeBreakdown.getText().equals("")))
 			{
 				JOptionPane.showMessageDialog(null, "수입분류를 선택하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
-			else if(expenseBox.getSelectedIndex()==0 && !(txtExpense.getText().equals("")))
+			else if(expenseBox.getSelectedIndex()==0 && (!txtExpense.getText().equals("") || !txtExpenseBreakdown.getText().equals("")))
 			{
 				JOptionPane.showMessageDialog(null, "지출분류를 선택하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
@@ -350,15 +375,15 @@ public class InputFrame extends JFrame implements ActionListener
 			{
 				JOptionPane.showMessageDialog(null, "수입을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
+			else if(incomeBox.getSelectedIndex()!=0 && txtIncomeBreakdown.getText().equals(""))
+			{
+				JOptionPane.showMessageDialog(null, "수입내역을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
 			else if(expenseBox.getSelectedIndex()!=0 && txtExpense.getText().equals(""))
 			{
 				JOptionPane.showMessageDialog(null, "지출을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
-			else if(incomeBox.getSelectedIndex()!=0 && !txtIncome.getText().equals("") && txtIncomeBreakdown.getText().equals(""))
-			{
-				JOptionPane.showMessageDialog(null, "수입내역을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
-			}
-			else if(expenseBox.getSelectedIndex()!=0 && !txtExpense.getText().equals("") && txtExpenseBreakdown.getText().equals(""))
+			else if(expenseBox.getSelectedIndex()!=0 && txtExpenseBreakdown.getText().equals(""))
 			{
 				JOptionPane.showMessageDialog(null, "지출내역을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}

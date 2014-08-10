@@ -188,15 +188,26 @@ public class EditFrame extends JFrame implements ActionListener
 			}
 			else
 			{
-				int result;
-				result = JOptionPane.showConfirmDialog(null, "수정하시겠습니까?","가계부수정",JOptionPane.YES_NO_CANCEL_OPTION);
-				if(result == 0)
+				if((combostarthour.getSelectedIndex() <= comboendhour.getSelectedIndex()))
 				{
-					setModifyScheduleData();
-					m.deleteSchedule(str);
-					insert.insertScheduleData(str[0],startTime,endTime,schedule,start);
-					new InputFrame(str[0]);
-					dispose();
+					if((combostarthour.getSelectedIndex() == comboendhour.getSelectedIndex())
+							&& (combostartmin.getSelectedIndex() == comboendmin.getSelectedIndex()))
+						JOptionPane.showMessageDialog(null, "시작시간이 종료시간보다 같습니다.", "확인", JOptionPane.WARNING_MESSAGE);
+					else if(combostartmin.getSelectedIndex() <= comboendmin.getSelectedIndex())
+					{
+						int result;
+						result = JOptionPane.showConfirmDialog(null, "수정하시겠습니까?","가계부수정",JOptionPane.YES_NO_CANCEL_OPTION);
+						if(result == 0)
+						{
+							setModifyScheduleData();
+							m.deleteSchedule(str);
+							insert.insertScheduleData(str[0],startTime,endTime,schedule,start);
+							new InputFrame(str[0]);
+							dispose();
+						}
+					}
+					else
+						JOptionPane.showMessageDialog(null, "시작시간이 종료시간보다 큽니다.", "확인", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		}

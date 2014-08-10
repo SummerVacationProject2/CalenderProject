@@ -195,11 +195,21 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 			{
 				JOptionPane.showMessageDialog(null, "모든 항목을 입력해주세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
-			else if(comboBox_income.getSelectedIndex()==0 && !(tf_income.getText().equals("")))
+			else if((comboBox_income.getSelectedIndex()!=0 && !tf_income.getText().equals("") && !tf_incomeContent.getText().equals(""))
+					&& (comboBox_expense.getSelectedIndex()!=0 || !tf_expense.getText().equals("") || !tf_expenseContent.getText().equals("")))
+			{
+				JOptionPane.showMessageDialog(null, "수입,지출 하나만 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if((comboBox_income.getSelectedIndex()!=0 || !tf_income.getText().equals("") || !tf_incomeContent.getText().equals(""))
+					&& (comboBox_expense.getSelectedIndex()!=0 && !tf_expense.getText().equals("") && !tf_expenseContent.getText().equals("")))
+			{
+				JOptionPane.showMessageDialog(null, "수입,지출 하나만 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(comboBox_income.getSelectedIndex()==0 && (!tf_income.getText().equals("") || !tf_incomeContent.getText().equals("")))
 			{
 				JOptionPane.showMessageDialog(null, "수입분류를 선택하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
-			else if(comboBox_expense.getSelectedIndex()==0 && !(tf_expense.getText().equals("")))
+			else if(comboBox_expense.getSelectedIndex()==0 && (!tf_expense.getText().equals("") || !tf_expenseContent.getText().equals("")))
 			{
 				JOptionPane.showMessageDialog(null, "지출분류를 선택하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
@@ -207,15 +217,15 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 			{
 				JOptionPane.showMessageDialog(null, "수입을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
+			else if(comboBox_income.getSelectedIndex()!=0 && tf_incomeContent.getText().equals(""))
+			{
+				JOptionPane.showMessageDialog(null, "수입내역을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
 			else if(comboBox_expense.getSelectedIndex()!=0 && tf_expense.getText().equals(""))
 			{
 				JOptionPane.showMessageDialog(null, "지출을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
-			else if(comboBox_income.getSelectedIndex()!=0 && !tf_income.getText().equals("") && tf_incomeContent.getText().equals(""))
-			{
-				JOptionPane.showMessageDialog(null, "수입내역을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
-			}
-			else if(comboBox_expense.getSelectedIndex()!=0 && !tf_expense.getText().equals("") && tf_expenseContent.getText().equals(""))
+			else if(comboBox_expense.getSelectedIndex()!=0 && tf_expenseContent.getText().equals(""))
 			{
 				JOptionPane.showMessageDialog(null, "지출내역을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
