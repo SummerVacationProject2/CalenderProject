@@ -149,43 +149,7 @@ public class Manager
            e1.printStackTrace();
         }
 	}
-	public void getAccount(String date,DefaultTableModel accountModel)
-	{
-		ResultSet rs = null;
-		
-		String arr[] = new String[6];
-		
-		Vector data = new Vector();
-		Vector vector_col;
-		Vector rows = new Vector();
-		
-		try
-		{
-	        ac.stmt = ac.con.createStatement();
-	        rs = ac.stmt.executeQuery("select DISTINCT * from account where "
-					+ "date like '" + date + "%' and " 
-					+ "incomeCategory like '" + "" + "%' and "
-					+ "expenseCategory like '" + "" + "%' and "
-					+ "cash like '" + "" + "%' and "
-					+ "income like '" + "" + "%' and "
-					+ "expense like '" + "" + "%' and "
-					+ "breakdown like '" + "" + "%' and ");
-	          
-	         while (rs.next())
-	         {
-	             arr[0] = rs.getString("startTime");
-	             arr[1] = rs.getString("endTime");
-	             arr[2] = rs.getString("schedule");
-	             arr[3] = rs.getString("income");
-		         arr[4] = rs.getString("expense");
-		         arr[5] = rs.getString("breakdown");
-		         accountModel.addRow(arr);
-	         }
-	        }
-			catch(SQLException se) {
-	            System.out.println(se.getMessage());
-	}
-	}
+
 	public void deleteAccount(String[] str)
 	{
 		try {
@@ -196,7 +160,8 @@ public class Manager
                  + "cash = '" + str[3] + "' and "
                  + "income = '" + str[4] + "' and "
                  + "expense = '" + str[5] + "' and "
-                 + "breakdown = '" + str[6] + "';");
+                 + "incomeBreakdown = '" + str[6] + "' and "
+                 + "expenseBreakdown = '" + str[7] + "';");
         } catch (SQLException e1) {
            e1.printStackTrace();
         }

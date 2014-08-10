@@ -29,7 +29,7 @@ public class InsertData
 			System.out.println(se.getMessage());
 		}
 	}
-	public void insertAccountData(String date,String incomeCate,String expenseCate,String cash, String income, String expense, String breakdown)
+	public void insertAccountData(String date,String incomeCate,String expenseCate,String cash, String income, String expense, String incomeBreakdown,String expenseBreakdown)
 	{
 		ad.accountdbManager();
 		ResultSet rs = null;
@@ -37,8 +37,8 @@ public class InsertData
 		try
 		{
 			ad.stmt = ad.con.createStatement();
-			ad.stmt.executeUpdate("insert into account(date,incomeCategory,expenseCategory,cash,income,expense,breakDown)"
-					+ "values('"+date+"','"+incomeCate+"','"+expenseCate+"','"+cash+"','"+income+"','"+expense+"','"+breakdown+"');");
+			ad.stmt.executeUpdate("insert into account(date,incomeCategory,expenseCategory,cash,income,expense,incomeBreakDown,expenseBreakdown)"
+					+ "values('"+date+"','"+incomeCate+"','"+expenseCate+"','"+cash+"','"+income+"','"+expense+"','"+incomeBreakdown+"','"+expenseBreakdown+"');");
 		}
 		catch(SQLException se1)
 		{

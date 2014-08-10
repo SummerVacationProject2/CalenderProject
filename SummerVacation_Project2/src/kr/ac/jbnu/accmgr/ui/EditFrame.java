@@ -23,7 +23,6 @@ public class EditFrame extends JFrame implements ActionListener
 	CalenderDBManager cd = new CalenderDBManager();
 	JButton edit_btn,cancle_btn;
 	TextField textField_2;
-	JLabel warning;
 	JComboBox combostarthour, combostartmin, comboendhour ,comboendmin;
 	String[] hours = new String[] {"시","1","2","3","4","5","6","7","8","9","10","11","12",
 			"13","14","15","16","17","18","19","20","21","22","23","24"};
@@ -93,12 +92,6 @@ public class EditFrame extends JFrame implements ActionListener
 		comboendmin.setBounds(277, 94, 61, 23);
 		panel.add(comboendmin);
 		
-		warning = new JLabel("모든 정보를 입력해주세요.");
-		warning.setBounds(150, 240, 200, 15);
-		warning.setForeground(new Color(255,0,0));
-		warning.setVisible(false);
-		panel.add(warning);
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
@@ -161,12 +154,37 @@ public class EditFrame extends JFrame implements ActionListener
 	{
 		if(e.getSource().equals(edit_btn))
 		{
-			if(textField_2.getText().equals("") || combostarthour.getSelectedIndex()==0
-					|| combostartmin.getSelectedIndex() == 0 
-					|| comboendhour.getSelectedIndex() == 0
-					|| comboendmin.getSelectedIndex() == 0)
+			if(textField_2.getText().equals("") 
+					&& combostarthour.getSelectedIndex()==0
+					&& combostartmin.getSelectedIndex() == 0 
+					&& comboendhour.getSelectedIndex() == 0
+					&& comboendmin.getSelectedIndex() == 0)
 			{
-				warning.setVisible(true);
+				JOptionPane.showMessageDialog(null, "모든 항목을 입력해주세요.", "확인", JOptionPane.WARNING_MESSAGE);
+			}
+			else if((combostarthour.getSelectedIndex()==0 && combostartmin.getSelectedIndex() != 0)
+					||(combostarthour.getSelectedIndex()!=0 && combostartmin.getSelectedIndex() == 0))
+			{
+				JOptionPane.showMessageDialog(null, "시작시간을 선택하세요.", "확인", JOptionPane.WARNING_MESSAGE);
+			}
+			else if((comboendhour.getSelectedIndex()==0 && comboendmin.getSelectedIndex() != 0)
+					||(comboendhour.getSelectedIndex()!=0 && comboendmin.getSelectedIndex() == 0))
+			{
+				JOptionPane.showMessageDialog(null, "종료시간을 선택하세요.", "확인", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(combostarthour.getSelectedIndex()==0 && combostartmin.getSelectedIndex() == 0 
+					&& (comboendhour.getSelectedIndex()!=0 || comboendmin.getSelectedIndex() != 0))
+			{
+				JOptionPane.showMessageDialog(null, "시작시간을 선택하세요.", "확인", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(combostarthour.getSelectedIndex()!=0 && combostartmin.getSelectedIndex() != 0 
+					&& (comboendhour.getSelectedIndex()==0 || comboendmin.getSelectedIndex() == 0))
+			{
+				JOptionPane.showMessageDialog(null, "종료시간을 선택하세요.", "확인", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(textField_2.getText().equals(""))
+			{
+				JOptionPane.showMessageDialog(null, "내역을 입력하세요.", "확인", JOptionPane.WARNING_MESSAGE);
 			}
 			else
 			{

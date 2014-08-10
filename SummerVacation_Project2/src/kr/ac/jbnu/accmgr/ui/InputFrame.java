@@ -34,16 +34,16 @@ public class InputFrame extends JFrame implements ActionListener
 	String[] minute = {"분","00","10","20","30","40","50"};
 	String date="";
 	String startTime,endTime,schedule;
-	String incomeCate,expenseCate,cashCate,income,expense,breakdown;
+	String incomeCate,expenseCate,cashCate,income,expense,incomeBreakdown,expenseBreakdown;
 	
 	int totalIncome, totalExpense, result = 0;
 	int start;
 	
 	JPanel panSchedule,panAccountBook;
-	JLabel labSchedule,labAccountBook,label,labelIncome,labelExpense,label2,label3,label4;
+	JLabel labSchedule,labAccountBook,label,labelIncome,labelExpense,label2,label3,label4,label5;
 	JComboBox startHourBox,startMinuteBox,endHourBox,endMinuteBox,incomeBox,expenseBox,cashBox;
 	static JTextField txtSchedule = new JTextField();
-	JTextField txtIncome,txtExpense,txtBreakdown;
+	JTextField txtIncome,txtExpense,txtIncomeBreakdown,txtExpenseBreakdown;
 	JTable scheduleTable,accountTable;
 	static JButton btnInput1 = new JButton("입력");
 	JButton btnInput2,btnModify1,btnModify2,btnDelete1,btnDelete2,btnBack;
@@ -53,7 +53,7 @@ public class InputFrame extends JFrame implements ActionListener
 	
 	public InputFrame(String date)
 	{
-		setSize(700,440);
+		setSize(740,440);
 		setTitle("Calender&Account Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.date = date;
@@ -132,43 +132,47 @@ public class InputFrame extends JFrame implements ActionListener
 	      }
 	    
 	    panAccountBook.add(incomeBox = new JComboBox<String>(incomeStr));
-	    incomeBox.setBounds(308, 17, 116, 20);
+	    incomeBox.setBounds(308, 17, 125, 20);
 	    panAccountBook.add(expenseBox = new JComboBox<String>(expenseStr));
-	    expenseBox.setBounds(429, 17, 116, 20);
+	    expenseBox.setBounds(450, 17, 125, 20);
 	    panAccountBook.add(cashBox = new JComboBox<String>(cash));
-	    cashBox.setBounds(550, 17, 116, 20);
+	    cashBox.setBounds(590, 17, 125, 20);
 	    panAccountBook.add(label2 = new JLabel("수입 : "));
 	    label2.setBounds(307, 43, 50, 15);
 	    panAccountBook.add(label3 = new JLabel("지출 : "));
-	    label3.setBounds(495, 43, 50, 15);
+	    label3.setBounds(515, 43, 50, 15);
 	    panAccountBook.add(txtIncome = new JTextField());
-	    txtIncome.setBounds(347, 40, 130, 24);
+	    txtIncome.setBounds(347, 40, 155, 24);
 	    panAccountBook.add(txtExpense = new JTextField());
-	    txtExpense.setBounds(537, 40, 130, 24);
-	    panAccountBook.add(label4 = new JLabel("내역 : "));
-	    label4.setBounds(307, 71, 50, 15);
-	    panAccountBook.add(txtBreakdown = new JTextField());
-	    txtBreakdown.setBounds(347, 69, 255, 24);
+	    txtExpense.setBounds(561, 40, 155, 24);
+	    panAccountBook.add(label4 = new JLabel("수입내역 : "));
+	    label4.setBounds(307, 71, 70, 15);
+	    panAccountBook.add(label5 = new JLabel("지출내역 : "));
+	    label5.setBounds(485, 71, 70, 15);
+	    panAccountBook.add(txtIncomeBreakdown = new JTextField());
+	    txtIncomeBreakdown.setBounds(377, 69, 100, 24);
+	    panAccountBook.add(txtExpenseBreakdown = new JTextField());
+	    txtExpenseBreakdown.setBounds(550, 69, 100, 24);
 	    panAccountBook.add(btnInput2 = new JButton("입력"));
-	    btnInput2.setBounds(606, 69, 60, 24);
+	    btnInput2.setBounds(655, 69, 60, 24);
 	    panAccountBook.add(accountTable = new JTable(accountModel));
-	    accountTable.setBounds(307, 97, 360, 216);
+	    accountTable.setBounds(307, 97, 409, 216);
 	    JScrollPane jsp2 = new JScrollPane(accountTable);
-	    jsp2.setBounds(307, 97, 360, 216);
+	    jsp2.setBounds(307, 97, 409, 216);
 	    jsp2.setVisible(true);
 	    panAccountBook.add(jsp2);
 	    panAccountBook.add(btnModify2 = new JButton("수정"));
-	    btnModify2.setBounds(414, 320, 60, 24);
+	    btnModify2.setBounds(434, 320, 60, 24);
 	    panAccountBook.add(btnDelete2 = new JButton("삭제"));
-	    btnDelete2.setBounds(480, 320, 60, 24);
+	    btnDelete2.setBounds(500, 320, 60, 24);
 	    
 	    totalIncome = m.getIncome(date);
 	    totalExpense = m.getExpense(date);
 	    
 	    panAccountBook.add(labelIncome = new JLabel("총 수입 : " + totalIncome + "원"));
-	    labelIncome.setBounds(557, 318, 150, 15);
+	    labelIncome.setBounds(587, 318, 150, 15);
 	    panAccountBook.add(labelExpense = new JLabel("총 지출 : " + totalExpense + "원"));
-	    labelExpense.setBounds(557, 335, 150, 15);
+	    labelExpense.setBounds(587, 335, 150, 15);
 	    Font f=new Font("Sherif",Font.BOLD,12);
 	    labelIncome.setFont(f);
 	    labelExpense.setFont(f);
@@ -274,45 +278,95 @@ public class InputFrame extends JFrame implements ActionListener
 
 		income = txtIncome.getText().toString();
 		expense = txtExpense.getText().toString();
-		breakdown = txtBreakdown.getText().toString();
+		incomeBreakdown = this.txtIncomeBreakdown.getText().toString();
+		expenseBreakdown = this.txtIncomeBreakdown.getText().toString();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btnInput1))
 		{
-			if(txtSchedule.getText().equals("") || startHourBox.getSelectedIndex()==0
-					|| startMinuteBox.getSelectedIndex() == 0 
-					|| endHourBox.getSelectedIndex() == 0
-					|| endMinuteBox.getSelectedIndex() == 0)
+			if(txtSchedule.getText().equals("") 
+					&& startHourBox.getSelectedIndex()==0
+					&& startMinuteBox.getSelectedIndex() == 0 
+					&& endHourBox.getSelectedIndex() == 0
+					&& endMinuteBox.getSelectedIndex() == 0)
 			{
-
+				JOptionPane.showMessageDialog(null, "모든 항목을 입력해주세요.", "확인", JOptionPane.WARNING_MESSAGE);
+			}
+			else if((startHourBox.getSelectedIndex()==0 && startMinuteBox.getSelectedIndex() != 0)
+					||(startHourBox.getSelectedIndex()!=0 && startMinuteBox.getSelectedIndex() == 0))
+			{
+				JOptionPane.showMessageDialog(null, "시작시간을 선택하세요.", "확인", JOptionPane.WARNING_MESSAGE);
+			}
+			else if((endHourBox.getSelectedIndex()==0 && endMinuteBox.getSelectedIndex() != 0)
+					||(endHourBox.getSelectedIndex()!=0 && endMinuteBox.getSelectedIndex() == 0))
+			{
+				JOptionPane.showMessageDialog(null, "종료시간을 선택하세요.", "확인", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(startHourBox.getSelectedIndex()==0 && startMinuteBox.getSelectedIndex() == 0 
+					&& (endHourBox.getSelectedIndex()!=0 || endMinuteBox.getSelectedIndex() != 0))
+			{
+				JOptionPane.showMessageDialog(null, "시작시간을 선택하세요.", "확인", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(startHourBox.getSelectedIndex()!=0 && startMinuteBox.getSelectedIndex() != 0 
+					&& (endHourBox.getSelectedIndex()==0 || endMinuteBox.getSelectedIndex() == 0))
+			{
+				JOptionPane.showMessageDialog(null, "종료시간을 선택하세요.", "확인", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(txtSchedule.getText().equals(""))
+			{
+				JOptionPane.showMessageDialog(null, "내역을 입력하세요.", "확인", JOptionPane.WARNING_MESSAGE);
 			}
 			else
 			{
-			setInsertScheduleData();
-			insert.insertScheduleData(date, startTime, endTime, schedule,start);
-			String [] value = {startTime,endTime,schedule};
-			scheduleTable.setModel(scheduleModel);
-			scheduleModel.fireTableDataChanged();
-			scheduleModel.insertData(value);
-	        scheduleTable.requestFocusInWindow();
-			txtSchedule.setText("");
+				setInsertScheduleData();
+				insert.insertScheduleData(date, startTime, endTime, schedule,start);
+				String [] value = {startTime,endTime,schedule};
+				scheduleTable.setModel(scheduleModel);
+				scheduleModel.fireTableDataChanged();
+				scheduleModel.insertData(value);
+		        scheduleTable.requestFocusInWindow();
+				txtSchedule.setText("");
 			}
 		}
 		else if(e.getSource().equals(btnInput2))
 		{
-			if(txtBreakdown.getText().equals("") 
-					|| (incomeBox.getSelectedIndex()==0 && expenseBox.getSelectedIndex() == 0)
-					|| (txtIncome.getText().equals("") && txtExpense.getText().equals("")))
+			if((txtIncomeBreakdown.getText().equals("") && (txtExpenseBreakdown.getText().equals("")))
+					&& (incomeBox.getSelectedIndex()==0 && expenseBox.getSelectedIndex() == 0)
+					&& (txtIncome.getText().equals("") && txtExpense.getText().equals("")))
 			{
-				
+				JOptionPane.showMessageDialog(null, "모든 항목을 입력해주세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(incomeBox.getSelectedIndex()==0 && !(txtIncome.getText().equals("")))
+			{
+				JOptionPane.showMessageDialog(null, "수입분류를 선택하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(expenseBox.getSelectedIndex()==0 && !(txtExpense.getText().equals("")))
+			{
+				JOptionPane.showMessageDialog(null, "지출분류를 선택하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(incomeBox.getSelectedIndex()!=0 && txtIncome.getText().equals(""))
+			{
+				JOptionPane.showMessageDialog(null, "수입을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(expenseBox.getSelectedIndex()!=0 && txtExpense.getText().equals(""))
+			{
+				JOptionPane.showMessageDialog(null, "지출을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(incomeBox.getSelectedIndex()!=0 && !txtIncome.getText().equals("") && txtIncomeBreakdown.getText().equals(""))
+			{
+				JOptionPane.showMessageDialog(null, "수입내역을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(expenseBox.getSelectedIndex()!=0 && !txtExpense.getText().equals("") && txtExpenseBreakdown.getText().equals(""))
+			{
+				JOptionPane.showMessageDialog(null, "지출내역을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
 			else
 			{
 				setInsertAccountData();
-				insert.insertAccountData(date, incomeCate,expenseCate,cashCate,income,expense,breakdown);
-				String [] value = {incomeCate,expenseCate,cashCate,income,expense,breakdown};
+				insert.insertAccountData(date, incomeCate,expenseCate,cashCate,income,expense,incomeBreakdown,expenseBreakdown);
+				String [] value = {incomeCate,expenseCate,cashCate,income,expense,incomeBreakdown,expenseBreakdown};
 
 		        accountTable.setModel(accountModel);
 		        accountModel.fireTableDataChanged();
@@ -320,9 +374,10 @@ public class InputFrame extends JFrame implements ActionListener
 		        accountTable.requestFocusInWindow();
 				txtIncome.setText("");
 				txtExpense.setText("");
-				txtBreakdown.setText("");
+				txtIncomeBreakdown.setText("");
+				txtExpenseBreakdown.setText("");
 				labelIncome.setText("총 수입 : " + m.getIncome(date) + "원");
-			    labelExpense.setText("총 수입 : " + m.getExpense(date) + "원");
+			    labelExpense.setText("총 지출 : " + m.getExpense(date) + "원");
 			}
 		}
 		else if(e.getSource().equals(btnDelete1))
@@ -349,7 +404,7 @@ public class InputFrame extends JFrame implements ActionListener
 			if(result == 0)
 			{
 				int row = accountTable.getSelectedRow();
-		        String[] str = new String[7];
+		        String[] str = new String[8];
 		        str[0] = date;
 		        
 		        for(int i=1; i<str.length;i++)
@@ -360,7 +415,7 @@ public class InputFrame extends JFrame implements ActionListener
 		        accountModel.removeRow(row);
 				m.deleteAccount(str);
 				labelIncome.setText("총 수입 : " + m.getIncome(date) + "원");
-			    labelExpense.setText("총 수입 : " + m.getExpense(date) + "원");
+			    labelExpense.setText("총 지출 : " + m.getExpense(date) + "원");
 			}
 		}
 		else if(e.getSource().equals(btnModify1))
@@ -385,7 +440,7 @@ public class InputFrame extends JFrame implements ActionListener
 		else if(e.getSource().equals(btnModify2))
 		{
 			int row = accountTable.getSelectedRow();
-	        String[] str = new String[7];
+	        String[] str = new String[8];
 	        str[0] = date;
 	        
 	        if(row > -1)

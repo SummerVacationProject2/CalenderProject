@@ -6,17 +6,19 @@ public class Account {
 	private String cash;
 	private String income;
 	private String expense;
-	private String breakdown;
-	private String[] tableEntity = new String[6];
+	private String incomeBreakdown;
+	private String expenseBreakdown;
+	private String[] tableEntity = new String[7];
 
-	public Account(String incomeCategory, String expenseCategory, String cash, String income, String expense, String breakdown) {
+	public Account(String incomeCategory, String expenseCategory, String cash, String income, String expense, String incomeBreakdown, String expenseBreakdown) {
 		super();
 		this.incomeCategory = incomeCategory;
 		this.expenseCategory = expenseCategory;
 		this.cash = cash;
 		this.income = income;
 		this.expense = expense;
-		this.breakdown = breakdown;
+		this.incomeBreakdown = incomeBreakdown;
+		this.expenseBreakdown = expenseBreakdown;
 	}
 	
 	public Account() {
@@ -64,18 +66,24 @@ public class Account {
 		this.expense = expense;
 	}
 	
-	public String getBreakdown() {
-		return breakdown;
+	public String getIncomeBreakdown() {
+		return incomeBreakdown;
+	}
+	public String getExpenseBreakdown() {
+		return expenseBreakdown;
 	}
 	
-	public void setBreakdown(String breakdown) {
-		this.breakdown = breakdown;
+	public void setIncomeBreakdown(String incomeBreakdown) {
+		this.incomeBreakdown = incomeBreakdown;
+	}
+	public void setExpenseBreakdown(String expenseBreakdown) {
+		this.expenseBreakdown = expenseBreakdown;
 	}
 	
 	@Override
 	public String toString() {
 		return "Account [incomeCategory=" + incomeCategory + ", expenseCategory=" + expenseCategory
-				+ ", cash=" + cash + ", income=" + income + ", expense=" + expense + ", breakdown=" + breakdown + "]";
+				+ ", cash=" + cash + ", income=" + income + ", expense=" + expense + ", incomeBreakdown=" + incomeBreakdown + ", expenseBreakdown=" + expenseBreakdown +"]";
 	}
 	
 	public void setTableEntity(String str[])

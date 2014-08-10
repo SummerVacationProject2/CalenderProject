@@ -23,7 +23,8 @@ public class AccountDBManager
 					"cash varchar(20) character set utf8 NOT NULL, " +
 					"income varchar(20) character set utf8 NOT NULL, " +
 					"expense varchar(20) character set utf8 NOT NULL, " +
-					"breakDown varchar(80) character set utf8 NOT NULL" + 
+					"incomeBreakdown varchar(80) character set utf8 NOT NULL, " + 
+					"expenseBreakdown varchar(80) character set utf8 NOT NULL " + 
 					")default charset = utf8;";
 
 			Class.forName(driverName);

@@ -2,7 +2,7 @@ package kr.ac.jbnu.accmgr.ui;
 
 public class AccountTableEntity {
 	int row;
-	String[] str = new String[6];
+	String[] str = new String[7];
 	
 	public void setRow(int row)
 	{
