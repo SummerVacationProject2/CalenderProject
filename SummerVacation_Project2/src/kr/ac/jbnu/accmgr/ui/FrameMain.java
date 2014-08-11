@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,7 +37,8 @@ class SwingCalender extends JFrame implements ActionListener
     String testDate = "";
     
 	String [] days = {"일","월","화","수","목","금","토"};
-    int year ,month,day,todays,memoday,totalIncome,totalExpen,balance=0;
+    int year ,month,day,todays,memoday=0;
+    BigDecimal totalIncome,totalExpen,balance;
     Font f;
     Color bc,fc;
     Calendar today;
@@ -175,13 +177,13 @@ class SwingCalender extends JFrame implements ActionListener
     {
     	if(month > 9 )
     	{
-    		totalIncome = m.getMonthIncome(year+"-"+month);
-    		totalExpen = m.getMonthExpense(year+"-"+month);
+    		totalIncome = new BigDecimal(m.getMonthIncome(year+"-"+month));
+    		totalExpen = new BigDecimal(m.getMonthExpense(year+"-"+month));
     	}
     	else
     	{
-    		totalIncome = m.getMonthIncome(year+"-0"+month);
-        	totalExpen = m.getMonthExpense(year+"-0"+month);
+    		totalIncome = new BigDecimal(m.getMonthIncome(year+"-0"+month));
+        	totalExpen = new BigDecimal(m.getMonthExpense(year+"-0"+month));
     	}
     }
     

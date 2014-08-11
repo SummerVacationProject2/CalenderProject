@@ -2,6 +2,7 @@ package kr.ac.jbnu.accmgr.ui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -36,7 +37,8 @@ public class InputFrame extends JFrame implements ActionListener
 	String startTime,endTime,schedule;
 	String incomeCate,expenseCate,cashCate,income,expense,incomeBreakdown,expenseBreakdown;
 	
-	int totalIncome, totalExpense, result = 0;
+	BigDecimal totalIncome, totalExpense;
+	int result = 0;
 	int start;
 	
 	JPanel panSchedule,panAccountBook;
@@ -166,8 +168,8 @@ public class InputFrame extends JFrame implements ActionListener
 	    panAccountBook.add(btnDelete2 = new JButton("»èÁ¦"));
 	    btnDelete2.setBounds(500, 320, 60, 24);
 	    
-	    totalIncome = m.getIncome(date);
-	    totalExpense = m.getExpense(date);
+	    totalIncome = new BigDecimal(m.getIncome(date));
+	    totalExpense = new BigDecimal(m.getExpense(date));
 	    
 	    panAccountBook.add(labelIncome = new JLabel("ÃÑ ¼öÀÔ : " + totalIncome + "¿ø"));
 	    labelIncome.setBounds(587, 318, 150, 15);
@@ -401,8 +403,8 @@ public class InputFrame extends JFrame implements ActionListener
 				txtExpense.setText("");
 				txtIncomeBreakdown.setText("");
 				txtExpenseBreakdown.setText("");
-				labelIncome.setText("ÃÑ ¼öÀÔ : " + m.getIncome(date) + "¿ø");
-			    labelExpense.setText("ÃÑ ÁöÃâ : " + m.getExpense(date) + "¿ø");
+				labelIncome.setText("ÃÑ ¼öÀÔ : " + new BigDecimal(m.getIncome(date)) + "¿ø");
+			    labelExpense.setText("ÃÑ ÁöÃâ : " + new BigDecimal(m.getExpense(date)) + "¿ø");
 			}
 		}
 		else if(e.getSource().equals(btnDelete1))
@@ -439,8 +441,8 @@ public class InputFrame extends JFrame implements ActionListener
 		        
 		        accountModel.removeRow(row);
 				m.deleteAccount(str);
-				labelIncome.setText("ÃÑ ¼öÀÔ : " + m.getIncome(date) + "¿ø");
-			    labelExpense.setText("ÃÑ ÁöÃâ : " + m.getExpense(date) + "¿ø");
+				labelIncome.setText("ÃÑ ¼öÀÔ : " + new BigDecimal(m.getIncome(date)) + "¿ø");
+			    labelExpense.setText("ÃÑ ÁöÃâ : " + new BigDecimal(m.getExpense(date)) + "¿ø");
 			}
 		}
 		else if(e.getSource().equals(btnModify1))
