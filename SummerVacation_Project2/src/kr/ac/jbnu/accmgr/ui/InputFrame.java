@@ -279,7 +279,7 @@ public class InputFrame extends JFrame implements ActionListener
 		income = txtIncome.getText().toString();
 		expense = txtExpense.getText().toString();
 		incomeBreakdown = this.txtIncomeBreakdown.getText().toString();
-		expenseBreakdown = this.txtIncomeBreakdown.getText().toString();
+		expenseBreakdown = this.txtExpenseBreakdown.getText().toString();
 	}
 
 	@Override
