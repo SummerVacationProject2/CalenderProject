@@ -14,7 +14,6 @@ public class CategoryDBManager
 	    {
 			String driverName = "com.mysql.jdbc.Driver";
 			String DBName = "categorydb";
-			String TBName = "category";
 			String dbURL = "jdbc:mysql://localhost:3306/"; // URL ÁöÁ¤
 			String sqlCT = "CREATE TABLE IF NOT EXISTS category (" +
 					"idx int primary key auto_increment, " + 

@@ -16,7 +16,6 @@ public class CalenderDBManager
 			String driverName = "com.mysql.jdbc.Driver";
 			String DBName = "calenderdb";
 			String dbURL = "jdbc:mysql://localhost:3306/"; // URL ÁöÁ¤
-			String sql = "select * from student;";
 			String sqlCT = "CREATE TABLE IF NOT EXISTS calender (" +
 					"idx int primary key auto_increment, " + 
 					"date varchar(20) character set utf8 NOT NULL, " +

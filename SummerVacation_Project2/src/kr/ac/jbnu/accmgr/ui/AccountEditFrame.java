@@ -1,21 +1,15 @@
 package kr.ac.jbnu.accmgr.ui;
 
-
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import kr.ac.jbnu.accmgr.persistent.AccountDBManager;
@@ -194,6 +188,14 @@ public class AccountEditFrame extends JFrame implements ActionListener{
 					&& (tf_income.getText().equals("") && tf_expense.getText().equals("")))
 			{
 				JOptionPane.showMessageDialog(null, "모든 항목을 입력해주세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(comboBox_income.getSelectedIndex() == -1 && comboBox_expense.getSelectedIndex() != 0)
+			{
+				JOptionPane.showMessageDialog(null, "수입분류를 하나 이상 추가해주세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(comboBox_income.getSelectedIndex() != 0 && comboBox_expense.getSelectedIndex() == -1)
+			{
+				JOptionPane.showMessageDialog(null, "지출분류를 하나 이상 추가해주세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
 			else if((comboBox_income.getSelectedIndex()!=0 && !tf_income.getText().equals("") && !tf_incomeContent.getText().equals(""))
 					&& (comboBox_expense.getSelectedIndex()!=0 || !tf_expense.getText().equals("") || !tf_expenseContent.getText().equals("")))

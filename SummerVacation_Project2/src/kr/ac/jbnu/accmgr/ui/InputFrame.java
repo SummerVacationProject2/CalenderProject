@@ -17,8 +17,6 @@ import javax.swing.JTextField;
 
 import kr.ac.jbnu.accmgr.persistent.Manager;
 
-
-
 public class InputFrame extends JFrame implements ActionListener
 {
 	String incomeStr[],expenseStr[];
@@ -355,6 +353,14 @@ public class InputFrame extends JFrame implements ActionListener
 			{
 				JOptionPane.showMessageDialog(null, "모든 항목을 입력해주세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
+			else if(incomeBox.getSelectedIndex() == -1 && expenseBox.getSelectedIndex() != 0)
+			{
+				JOptionPane.showMessageDialog(null, "수입분류를 하나 이상 추가해주세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
+			else if(incomeBox.getSelectedIndex() != 0 && expenseBox.getSelectedIndex() == -1)
+			{
+				JOptionPane.showMessageDialog(null, "지출분류를 하나 이상 추가해주세요.", "확인!", JOptionPane.WARNING_MESSAGE);
+			}
 			else if((incomeBox.getSelectedIndex()!=0 && !txtIncome.getText().equals("") && !txtIncomeBreakdown.getText().equals(""))
 					&& (expenseBox.getSelectedIndex()!=0 || !txtExpense.getText().equals("") || !txtExpenseBreakdown.getText().equals("")))
 			{
@@ -389,7 +395,10 @@ public class InputFrame extends JFrame implements ActionListener
 			{
 				JOptionPane.showMessageDialog(null, "지출내역을 입력하세요.", "확인!", JOptionPane.WARNING_MESSAGE);
 			}
-			else
+			else if((incomeBox.getSelectedIndex()!=0 && !txtIncome.getText().equals("") && !txtIncomeBreakdown.getText().equals(""))
+					|| (expenseBox.getSelectedIndex()!=0 && !txtExpense.getText().equals("") && !txtExpenseBreakdown.getText().equals(""))
+					|| (incomeBox.getSelectedIndex() == -1 && expenseBox.getSelectedIndex() != 0)
+					|| (incomeBox.getSelectedIndex() != 0 && expenseBox.getSelectedIndex() == -1))
 			{
 				setInsertAccountData();
 				insert.insertAccountData(date, incomeCate,expenseCate,cashCate,income,expense,incomeBreakdown,expenseBreakdown);

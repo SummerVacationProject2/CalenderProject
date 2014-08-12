@@ -66,7 +66,7 @@ public class InsertExpenseCategoryFrame extends JFrame implements ActionListener
 		}
 		else if(e.getSource().equals(btnBack))
 		{
-			new SwingCalender();
+			new AccountSettingFrame();
 			setVisible(false);
 		}		
 	}
